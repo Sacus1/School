@@ -1,0 +1,44 @@
+@startuml classe
+class Cercle {
+    private double rayon
+    Cercle(double rayon)
+    void instruire(Dessinateur d)
+}
+class Scene{
+
+}
+class Dessinable{
+    void instruire(Dessinateur d)
+}
+class Assemblage{
+Scene brancheGauche
+Scene brancheDroite
+Assemblage(Scene bg, Scene bd)
+abstract void assembler(Dessinateur d);
+void instruire(Dessinateur d)
+}
+class AssemblageCompose{
+Assemblage brancheGauche
+Assemblage brancheDroite
+void instruire(Dessinateur d)
+AssemblageCompose(Assemblage bg, Assemblage bd)
+void instruire(Dessinateur d)
+}
+class Bascule{
+    private Vecteur v
+    private double angle
+    Bascule(Scene a, Scene b, double tx, double ty, double tz, double angle)
+    void assembler(Dessinateur d)
+}
+class Decalage{
+    private Vecteur v;
+    Decalage(Scene a, Scene b, double tx, double ty, double tz)
+    void assembler(Dessinateur d)
+}
+Dessinable --> Scene
+Scene --> Cercle
+Scene --> Assemblage
+Scene --> AssemblageCompose
+Assemblage --> Bascule
+Assemblage --> Decalage
+@enduml
