@@ -1,13 +1,13 @@
 public class Chemin {
     private double cout;
-    private Point pointDest;
+    private Sommet pointDest;
 
-    public Chemin(Point Destination, double cout) {
+    public Chemin(Sommet Destination, double cout) {
         pointDest = Destination;
         this.cout = cout;
     }
 
-    public Point GetDest() {
+    public Sommet GetDest() {
         return pointDest;
     }
 
