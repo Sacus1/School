@@ -9,7 +9,7 @@ public class App {
                 /* 4 */ "Occitanie",
                 /* 5 */ "Centre-Val de Loire",
                 /* 6 */ "Ile-de-France",
-                /* 7 */ "Provence-Alpes-Côtes d'Azure",
+                /* 7 */ "Provence-Alpes-Côtes d'Azur",
                 /* 8 */ "Auvergne-Rhône-Alpes",
                 /* 9 */ "Grand-Est",
                 /* 10 */ "Hauts-de-France",
