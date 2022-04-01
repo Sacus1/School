@@ -34,7 +34,7 @@ public class Sommet {
      * @return Nom du sommet
      */
     public String toString() {
-        return nom;
+        return new String(nom);
     }
 
     public boolean equals(Object object) {
