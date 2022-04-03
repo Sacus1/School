@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Sommet {
-    private ArrayList<Chemin> chemins = new ArrayList<Chemin>();
+    private ArrayList<Chemin> chemins = new ArrayList<Chemin>(); // Liste des chemin accessible depuis ce sommet
     private String nom;
 
     public Sommet(String nom, Chemin[] c) {
