@@ -39,25 +39,4 @@ public class Chemin {
             return this;
         return c;
     }
-
-    /**
-     * @param Une liste de chemin
-     * @return Chemin le plus court
-     */
-    public static Chemin min(Chemin[] c, Graphe ignore) {
-        Chemin CheminPlusCourt = c[0];
-        for (Chemin chemin : c) {
-            boolean isIgnored = false;
-            for (int i = 0; i < ignore.length(); i++) {
-                if (chemin.GetDest().equals(ignore.Get(i))) {
-                    isIgnored = true;
-                    break;
-                }
-            }
-            if (isIgnored)
-                continue;
-            CheminPlusCourt = CheminPlusCourt.min(chemin);
-        }
-        return CheminPlusCourt;
-    }
 }
