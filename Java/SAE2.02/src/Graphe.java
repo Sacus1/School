@@ -122,7 +122,6 @@ public class Graphe {
                 }
             }
             double mini = INFINITY;
-            i = Sbar.Get(0); //Je suis pas sur de l'utilité de ce truc X)
             for (int j = 0; j < Sbar.length() && Sbar.Get(j) != (Sommet)null ; j++) { //On cherche le plus court chemin dans Sbar
                 int sommetIndice = Get(Sbar.Get(j));
                 if (coutSommet[sommetIndice] < mini) {
