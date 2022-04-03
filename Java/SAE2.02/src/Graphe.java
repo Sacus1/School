@@ -1,13 +1,13 @@
 public class Graphe {
     private Sommet[] s; // Une liste des sommet du graphe
-    private final static double INFINITY = 100000; // Une valeur normalement impossible a atteindre est considerer comme
-                                                   // infini
-    private int taille = 0; // indice du derniere element de la liste de sommet (donne aussi l'ordre du
-                            // graphe / taille du tableau)
+    private final static double INFINITY = 100000; // Une valeur normalement impossible a atteindre est considerer comme infini
+    private int taille = 0; // indice du derniere element de la liste de sommet (donne aussi l'ordre du graphe / taille du tableau)
+
 
     public Graphe(int taille) {
         s = new Sommet[taille];
     }
+
 
     public Graphe(Graphe g) throws Exception { // Constructeur par recopie
         this(g.length());
@@ -40,8 +40,7 @@ public class Graphe {
      * @param indice du sommet a supprimer
      */
     public void remove(int indice) {
-        for (int i = indice + 1; i < taille; i++) { // On decalle tout les element du tableau et ecrase l'element a
-                                                    // supprimer
+        for (int i = indice + 1; i < taille; i++) { //On decalle tout les element du tableau et ecrase l'element a supprimer
             s[i - 1] = s[i];
         }
         taille--;
@@ -51,7 +50,7 @@ public class Graphe {
      * @param sommet a supprimer
      */
     public void remove(Sommet sommet) {
-        for (int i = 0; i < taille; i++) { // On parcours le tableau de sommet pour chercher le sommet
+        for (int i = 0; i < taille; i++) { //On parcours le tableau de sommet pour chercher le sommet
             if (s[i].equals(sommet)) {
                 remove(i);
                 return;
@@ -126,8 +125,8 @@ public class Graphe {
                 }
             }
             double mini = INFINITY;
-            for (int j = 0; j < Sbar.length() && Sbar.Get(j) != (Sommet) null; j++) { // On cherche le plus court chemin
-                                                                                      // dans Sbar
+            for (int j = 0; j < Sbar.length() && Sbar.Get(j) != (Sommet) null; j++) { // On cherche le plus court chemin dans Sbar
+                                                                                      
                 int sommetIndice = Get(Sbar.Get(j));
                 if (coutSommet[sommetIndice] < mini) {
                     mini = coutSommet[sommetIndice];
