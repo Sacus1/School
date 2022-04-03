@@ -8,7 +8,7 @@ public class Graphe {
     }
 
     public Graphe(Graphe g) throws Exception { //Constructeur par recopie
-        this(g.lenght());
+        this(g.length());
         for (int i = 0; i < g.length(); i++) {//On parcours tout les sommet du graphe a recopier
             add(g.Get(i));// On l'ajoute au nouveau graphe
         }
@@ -113,8 +113,8 @@ public class Graphe {
             Chemin[] gamma = i.GetChemins(); // On recupere les successeur du sommet
             for (Chemin c : gamma) { // On parcours les successeur
                 if (Sbar.Get(c.GetDest()) > -1) { // Verifie si il est dans les sommet a explorer
-                    double cout = chemin2.GetCout() + coutPrec;
-                    int sommetIndice = Get(chemin2.GetDest());
+                    double cout = c.GetCout() + coutPrec;
+                    int sommetIndice = Get(c.GetDest());
                     if (coutSommet[sommetIndice] > cout) { //Si le nouveau chemin est plus court
                         coutSommet[sommetIndice] = cout;
                         Prec[sommetIndice] = i;
@@ -135,7 +135,7 @@ public class Graphe {
         Graphe chemin = new Graphe(taille);
         int j = Sommet2;
         chemin.add(Get(j)); //On ajoute le sommet de depart au graphe
-        while (j != Sommet1 && Prec[j]) { // et on ajoute tout les sommet du chemin juste qu'a l'arriver ou qu'il n'y ai plus de predecesseur
+        while (j != Sommet1 && Prec[j] != (Sommet)null) { // et on ajoute tout les sommet du chemin juste qu'a l'arriver ou qu'il n'y ai plus de predecesseur
             chemin.add(Prec[j]);
             j = Get(Prec[j]);
         }
