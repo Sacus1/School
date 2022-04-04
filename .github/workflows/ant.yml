@@ -22,4 +22,4 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build with Ant
-      run: ./Java/SAE2.02/src/App.java
+      run: ./Java/SAE2.02/src/App.java 
