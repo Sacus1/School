@@ -1,0 +1,1 @@
+echo "Salut a tous"
