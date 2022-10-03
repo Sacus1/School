@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>DOO TP3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#AAAAAA" text="#4F2F1F">
+    <h2>DOO - Canevas du TP 3 : Encapsulation et utilisation de type</h2>
+    <b>Attendus :</b>
+    <dl>
+      <dd> - D&eacute;velopper une classe utilisant une autre classe; </dd>
+      <dd> - Refondre une classe encapsul&eacute;e; </dd>
+    </dl>
+
+    <b>A rendre en fin de TP :</b>
+    <dl>
+      <dd> - Le compte-rendu (PDF + DOC/ODT), </dd>
+      <dd> - les sources (y-compris <tt>Angle.java</tt> et les tests),
+           et la documentation <b>compl&egrave;te</b> des classes
+           <tt>Pixel</tt> et <tt>Complexe</tt> dans une archive ZIP
+           (seul format accept&eacute;). </dd>
+      <dd> - <b>Rien d'autre</b> (pas les fichiers <tt>.class</tt>,
+           ni l'&eacute;nonc&eacute;). </dd>
+    </dl>
+
+    <b>Evaluation :</b>
+    <p>L'&eacute;valuation de ce TP portera sur la qualit&eacute; du
+       d&eacute;veloppement et sur la forme du rendu
+       (fichier source qui compile et ex&eacute;cute, compte-rendu
+       s&eacute;rieux, documentation compl&egrave;te, absence de fichiers
+       parasites) plut&ocirc;t que sur la quantit&eacute; de code produite.
+       Le r&eacute;sultat sera un bonus/malus adoss&eacute; &agrave; la
+       note du prochain TP not&eacute;. </p>
+
+    <b>Partie 1 : Type Complexe</b>
+    <p>En s'appuyant sur le type <em>Angle</em> du TP pr&eacute;c&eacute;dent,
+       &eacute;crire, <b>tester</b> et documenter (<em>javadoc</em>) un type
+       <em>Complexe</em> repr&eacute;sentant un nombre complexe <tt>c</tt>
+       par sa partie r&eacute;elle <tt>a</tt> et sa partie imaginaire
+       <tt>b</tt>.  Notation : <tt>c = a + i.b</tt> </p>
+    <p> <img src="complexes/complexes.png" width="451" height="450"></a> </p>
+    <dl>
+       <dt><li>Constructeurs :</li></dt>
+       <dd>- un constructeur <b>principal</b> &agrave; partir de deux valeurs
+           r&eacute;elles pour les parties r&eacute;elle et imaginaire
+           (pr&eacute;voir &agrave; la suite le <tt>toString</tt> pour
+           pouvoir tester), </dd>
+       <dd>- un constructeur &agrave; partir d'un module et d'un argument, </dd>
+       <dd>- un constructeur par recopie. </dd>
+    </dl>
+    <dl>
+       <dt><li>Accesseurs :</li></dt>
+       <dd>- une m&eacute;thode de conversion en cha&icirc;ne de
+           caract&egrave;res, </dd>
+       <dd>- une m&eacute;thode <em>partieReelle</em> qui retourne la partie
+           r&eacute;elle, </dd>
+       <dd>- une m&eacute;thode <em>partieImaginaire</em> qui retourne la
+           partie imaginaire, </dd>
+       <dd>- une m&eacute;thode <em>module</em> qui retourne le module, </dd>
+       <dd>- une m&eacute;thode <em>argument</em> qui retourne l'argument, </dd>
+       <dd>- une m&eacute;thode <em>estReelPur</em> qui teste si le complexe
+           est r&eacute;el pur (&agrave; &epsilon; pr&egrave;s), </dd>
+       <dd>- une m&eacute;thode <em>conjugue</em> qui retourne le complexe
+           conjugu&eacute; : <tt>a -i.b</tt>, </dd>
+       <dd>- une m&eacute;thode <em>somme</em> qui retourne la somme de
+           deux complexes : <tt>(a1 + a2) + i.(b1 + b2)</tt>, </dd>
+       <dd>- une m&eacute;thode <em>produit</em> qui retourne le produit avec
+           un autre complexe :
+           <tt>(a1.a2 - b1.b2) + i (a1.b2 + a2.b1)</tt>, </dd>
+    </dl>
+    <dl>
+       <dt><li>Mutateurs :</li></dt>
+       <dd>- une m&eacute;thode <em>ajouter</em> qui ajoute la valeur d'un
+           autre complexe, </dd>
+       <dd>- une m&eacute;thode <em>multiplier</em> qui multiplie par un
+           autre complexe, </dd>
+    </dl>
+    </p>
+    <dl>
+    <b>Partie 2 : Refonte du type Complexe</b>
+    <p> Recopier tous les fichiers sources <tt>.java</tt> (y compris les
+        tests) dans un nouveau r&eacute;pertoire <em>v2</em>, puis
+        travailler dans ce r&eacute;pertoire <em>v2</em>. </p>
+    <p> R&eacute;&eacute;crire la classe <em> Complexe.java</em> en prenant
+        cette fois comme attributs un module et un argument.
+        En principe, il suffit de repartir de l'ancien fichier Java, de
+        changer les attributs et de rectifier le contenu des
+        m&eacute;thodes. Les tests r&eacute;alis&eacute;s
+        pr&eacute;c&eacute;demment doivent encore fonctionner. </p>
+    <dl>
+       <dt> Compl&eacute;ter cette classe avec : </dt>
+       <dd>- une m&eacute;thode <em>inverse</em> qui retourne l'inverse du
+           complexe : <tt>(a - i.b) / (a.a + b.b)</tt>, </dd>
+       <dd>- une m&eacute;thode <em>inverser</em> qui remplace le complexe
+           par son inverse. </dd>
+    </dl>
+  </body>
+</html>
