@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>DOO TP1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#acacac" text="#4F2F1F">
+    <h2>DOO - Canevas du TP 1 : Classe, attributs et m&eacute;thodes</h2>
+    <b>Consignes g&eacute;n&eacute;rales :</b>
+    <dl>
+      <dd> - Pas d'IDE ni d'&eacute;diteur avec compl&eacute;tion automatique
+           dans le cadre des TP de DOO ou QD. </dd>
+      <dd> - Tester r&eacute;guli&egrave;rement la documentation
+           (commande <em>javadoc --private -d doc</em>).
+    </dl>
+
+    <b>Attendus :</b>
+    <dl>
+      <dd> - Savoir &eacute;crire un code Java; </dd>
+      <dd> - Savoir d&eacute;velopper une classe simple; </dd>
+      <dd> - Savoir lui associer des attributs et des m&eacute;thodes; </dd>
+      <dd> - Savoir la commenter et la tester <b>au fur et &agrave; mesure</b>
+           du d&eacute;veloppement de chaque m&eacute;thode</b>; </dd>
+      <dd> - Appr&eacute;hender les notions de constructeurs, de constructeur
+           principal et de surcharge.
+    </dl>
+
+    <b>A rendre en fin de TP :</b>
+    <dl>
+      <dd> - Le compte-rendu (PDF + DOC/ODT), </dd>
+      <dd> - les sources (<tt>Pixel.java</tt> et <tt>TestPixel.java</tt>),
+           et la documentation <b>compl&egrave;te</b> de la classe
+           <tt>Pixel</tt> dans une archive ZIP (seul format accept&eacute;).
+      </dd>
+      <dd> - <b>Rien d'autre</b> (pas les fichiers <tt>.class</tt>,
+           ni l'&eacute;nonc&eacute;). </dd>
+      <dd> - Remarque : un compte-rendu doit aussi illustrer les notions
+           du cours mises en oeuvre au travers d'exemples tir&eacute;s du
+           code r&eacute;alis&eacute; par contre, il ne doit pas comporter
+           de portions compl&egrave;tes du code sans commentaire, et surtout
+           <b> pas de copies d'&eacute;cran </b> (p&eacute;nalit&eacute;s).
+      </dd>
+    </dl>
+
+    <b>Evaluation :</b>
+    <p>Dans ce TP, la priorit&eacute; est mise sur l'apprentissage des
+       concepts objets et de la m&eacute;thode de travail.
+       L'&eacute;valuation portera donc sur la forme du rendu
+       (fichier source qui compile et ex&eacute;cute, compte-rendu
+       s&eacute;rieux, documentation compl&egrave;te, absence de fichiers
+       parasites) plut&ocirc;t que sur la quantit&eacute; de code produite.
+       Le r&eacute;sultat sera un bonus/malus adoss&eacute; &agrave; la
+       note du TP suivant. </p>
+
+    <b>Sujet</b>
+    <dl>
+       <dt>a) Ecrire une classe <em>Pixel</em> avec deux attributs entiers
+       <em>x</em> et <em>y</em> et les m&eacute;thodes suivantes : </dt>
+       <dd>- un constructeur <b>principal</b> avec deux entiers en
+             param&egrave;tres, </dd>
+       <dd>- une m&eacute;thode <em>toString</em> indiquant la valeur
+             du pixel. </dd>
+    </dl>
+
+    <dl>
+       <dt>b) Ecrire une classe <em>TestPixel</em> avec un <em>main</em>
+           dans lequel on cr&eacute;e un pixel et on l'affiche. </dt>
+    </dl>
+
+    <dl>
+       <dt>c) Dans la suite du TP, on testera syst&eacute;matiquement les
+          m&eacute;thodes au fur et &agrave; mesure de leur
+          d&eacute;veloppement. </dt>
+       <dd> Compl&eacute;ter la classe <tt>Pixel</tt> avec les m&eacute;thodes
+          suivantes : </dd>
+       <dd>- un constructeur sans param&egrave;tre, construisant le
+             pixel (0,0), </dd>
+       <dd>- un constructeur avec un pixel en param&egrave;tre, </dd>
+       <dd>- un constructeur avec deux r&eacute;els en param&egrave;tres
+             (l'intervalle de troncature est [-0.5, 0.5[), </dd>
+       <dd>- un constructeur avec un tableau de deux pixels en
+             param&egrave;tre construisant le pixel d'&eacute;cart entre
+             les deux pixels du tableau : <em>(x2 - x1, y2 - y1)</em>, </dd>
+       <dd>- une m&eacute;thode <em>distance2</em> retournant le carr&eacute;
+             de la distance euclidienne du pixel &agrave; l'origine :
+             <tt>(x*x + y*y)</tt>.
+             Attention au type retourn&eacute; ! </dd>
+       <dd>- une m&eacute;thode <em>plusLoinQue</em> testant si le pixel
+             est plus loin de l'origine que le pixel en param&egrave;tre
+             (utiliser <em>distance2</em>). </dd>
+       <dd>- une m&eacute;thode <em>distance2</em> retournant le carr&eacute;
+             de la distance euclidienne &agrave; un autre pixel (utiliser
+             le constructeur avec un tableau en param&egrave;tre). </dd>
+       <dd>- une m&eacute;thode <em>distanceManhattan</em> retournant la
+          <a href=distances/manhattan.html>distance de Manhattan</a>
+             &agrave; un autre pixel, </dd>
+       <dd>- une m&eacute;thode <em>distanceEchiquier</em> retournant la
+          <a href=distances/echiquier.html>distance de l'&eacute;chiquer</a>
+             &agrave; un autre pixel. </dd>
+    </dl>
+
+    <dl>
+       <dt>d) Ecrire une classe <em>TestGraphique</em> avec un <em>main</em>
+           dans lequel on cr&eacute;e un pixel et on le trace sur un
+           damier. </dt>
+       <dd>
+          Pour le trac&eacute; du pixel, on se servira de la classe
+          <em>Damier</em>.  Une <a href=doc/index.html>documentation</a>
+          est fournie dans le r&eacute;pertoire <tt>doc</tt>.
+          Le programme de test d'utilisation de cette classe, contenu
+          dans le fichier <em>TestDamier.java</em>, s'appuie sur la classe
+          <em>Saisie</em>, &eacute;galement document&eacute;e dans le
+          r&eacute;pertoire <tt>doc</tt>. </dd>
+    </dl>
+
+    <dl>
+       <dt>e) Dans la suite du TP, on ajoutera aussi des tests graphiques
+           syst&eacute;matiques au fur et &agrave; mesure du
+           d&eacute;veloppement.
+       <dd> Compl&eacute;ter la classe <tt>Pixel</tt> avec les m&eacute;thodes
+          suivantes : </dd>
+       <dd>- une m&eacute;thode <em>midpixel</em> retournant le pixel
+             &agrave; mi-distance euclidienne d'un autre pixel, </dd>
+       <dd>- une m&eacute;thode <em>midpixelManhattan</em> retournant les
+             pixels &agrave; mi-distance de Manhattan d'un autre pixel, </dd>
+       <dd>- une m&eacute;thode <em>midpixelEchiquier</em> retournant les
+             pixels &agrave; mi-distance de l'&eacute;chiquier d'un autre
+             pixel. </dd>
+    </dl>
+  </body>
+</html>
