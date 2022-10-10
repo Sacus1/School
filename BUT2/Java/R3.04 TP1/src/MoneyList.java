@@ -14,7 +14,7 @@ public class MoneyList {
     }
 
     public void ajouterSomme(Money m) throws DeviseException {
-        // look for a money with the same currency
+        // look for money with the same currency
         for (int i = 0; i < list.size(); i++) {
             // if found, add the amount
             if (list.get(i).getDevise().equals(m.getDevise())) {
