@@ -2,13 +2,18 @@ public class Main {
     public static void main(String[] args) {
         Money m1 = new Money(10, "EUR");
         Money m2 = new Money(20, "EUR");
+        Money m3, m4;
         try {
             // add two Money objects but in try catch block because it throws DeviseException
-            Money m3 = m1.add(m2);
-            Money m4 = m1.add(new Money(20, "USD"));
+            m3 = m1.add(m2);
+            m4 = m1.add(new Money(20, "USD"));
             System.out.println(m3);
             System.out.println(m4);
-
+        }
+        catch (DeviseException e) {
+            System.out.println(e.getMessage());
+        }
+        try{
             // compare two Money objects with different values
             System.out.println(m1.equals(m2));
 
@@ -59,6 +64,18 @@ public class Main {
 
         } catch (DeviseException e) {
             e.printStackTrace();
+        }
+        // 3.1 : Le HashSet est une classe qui permet d'assurer l'unicité des éléments dans une structure de données. Il n'y a pas besoin d'adapter
+        try {
+            ListeIp listeIp = new ListeIp(false);
+            listeIp.chargerFichier("logs");
+            System.out.println(listeIp.ips);
+            // sorted list
+            ListeIp listeIp2 = new ListeIp(true);
+            listeIp2.chargerFichier("logs");
+            System.out.println(listeIp2.ips);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 }

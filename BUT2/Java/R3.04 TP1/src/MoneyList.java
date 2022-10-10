@@ -17,8 +17,9 @@ public class MoneyList {
         // look for money with the same currency
         for (int i = 0; i < list.size(); i++) {
             // if found, add the amount
-            if (list.get(i).getDevise().equals(m.getDevise())) {
-                Money money = list.get(i).add(m);
+            Money money =list.get(i);
+            if (money.getDevise().equals(m.getDevise())) {
+                money = money.add(m);
                 list.set(i, money);
                 return;
             }
