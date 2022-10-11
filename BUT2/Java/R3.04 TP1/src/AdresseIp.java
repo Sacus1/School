@@ -1,5 +1,6 @@
 public class AdresseIp implements Comparable<AdresseIp> {
     short[] ip = new short[4];
+
     public AdresseIp(String ip) {
         String[] ipParts = ip.split("\\.");
         for (int i = 0; i < 4; i++) {
@@ -17,10 +18,12 @@ public class AdresseIp implements Comparable<AdresseIp> {
         }
         return 0;
     }
+
     @Override
     public String toString() {
         return ip[0] + "." + ip[1] + "." + ip[2] + "." + ip[3];
     }
+
     @Override
     public boolean equals(Object obj) {
         // if the object is compared with itself then return true

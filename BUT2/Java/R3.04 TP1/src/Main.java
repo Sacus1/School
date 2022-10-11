@@ -9,11 +9,10 @@ public class Main {
             m4 = m1.add(new Money(20, "USD"));
             System.out.println(m3);
             System.out.println(m4);
-        }
-        catch (DeviseException e) {
+        } catch (DeviseException e) {
             System.out.println(e.getMessage());
         }
-        try{
+        try {
             // compare two Money objects with different values
             System.out.println(m1.equals(m2));
 

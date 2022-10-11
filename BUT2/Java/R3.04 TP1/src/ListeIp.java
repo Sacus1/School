@@ -14,6 +14,12 @@ public class ListeIp {
         }
     }
 
+    /**
+     * Charge les adresses IP contenues dans le fichier dont le nom est passé en paramètre.
+     *
+     * @param name le nom du fichier à charger
+     * @throws FileNotFoundException si le fichier n'existe pas
+     */
     public void chargerFichier(String name) throws IOException {
         File file = new File(name);
         if (file.exists()) {

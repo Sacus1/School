@@ -5,19 +5,31 @@ import java.util.List;
 public class MoneyList {
     private final List<Money> list;
 
+    /**
+     * Constructor for MoneyList
+     */
     public MoneyList() {
         list = new ArrayList<>();
     }
 
+    /**
+     * Get the list of Money objects
+     */
     public List<Money> getList() {
         return list;
     }
 
+    /**
+     * Add a Money object to the list
+     *
+     * @param m the Money object to add
+     * @throws DeviseException if the devise of the Money object is not the same as the other Money objects in the list
+     */
     public void ajouterSomme(Money m) throws DeviseException {
         // look for money with the same currency
         for (int i = 0; i < list.size(); i++) {
             // if found, add the amount
-            Money money =list.get(i);
+            Money money = list.get(i);
             if (money.getDevise().equals(m.getDevise())) {
                 money = money.add(m);
                 list.set(i, money);
@@ -58,6 +70,7 @@ public class MoneyList {
     public void triMontant() {
         Collections.sort(list);
     }
+
     public void triDevise() {
         list.sort(new DeviseComparator());
     }

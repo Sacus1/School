@@ -9,14 +9,25 @@ public class Money implements Comparable<Money> {
         this.devise = dev;
     }
 
+    /***
+     * @return the amount of money
+     */
     public int getMontant() {
         return this.montant;
     }
 
+    /***
+     * @return the devise of the money
+     */
     public String getDevise() {
         return this.devise;
     }
 
+    /***
+     * @param m the money to add to this money
+     * @return the sum of the two money
+     * @throws DeviseException if the two money have different devises
+     */
     public Money add(Money m) throws DeviseException {
         // if not the same devise throw exception
         if (!Objects.equals(this.devise, m.devise)) {
@@ -30,8 +41,6 @@ public class Money implements Comparable<Money> {
     public String toString() {
         return this.getMontant() + " " + this.getDevise();
     }
-
-
 
 
     @Override
@@ -51,7 +60,7 @@ public class Money implements Comparable<Money> {
 
     @Override
     public int compareTo(Money o) {
-        return  o.getMontant() - this.getMontant();
+        return o.getMontant() - this.getMontant();
     }
 
 }
