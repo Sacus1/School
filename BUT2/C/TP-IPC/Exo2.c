@@ -11,7 +11,6 @@ char strfather[10] = "salut";
 char strchild[10] = "bonjour";
 void signal_read_fils(int sig)
 {
-    printf("Signal recu : %d", sig);
     int shmid = shmget(0x75, 4096, IPC_CREAT | 0777);
     if (shmid == -1)
     {
@@ -27,7 +26,6 @@ void signal_read_fils(int sig)
 
 void signal_read_pere(int sig)
 {
-    printf("Signal recu : %d", sig);
     int shmid = shmget(0x75, 4096, IPC_CREAT | 0777);
     if (shmid == -1)
     {
