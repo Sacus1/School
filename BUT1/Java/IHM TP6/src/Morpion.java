@@ -92,7 +92,7 @@ public class Morpion extends JFrame {
         // Create an empty border around the panel
         panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         // Sets constraints for the main frame
-        // To do ..
+
 
         // Sets the menu bar for this frame.
         JMenu Menu = new JMenu("Menu");
