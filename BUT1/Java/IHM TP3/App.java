@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class App {
 
@@ -115,9 +116,7 @@ class FrameSquelette extends JFrame implements MouseInputListener {
                 posY = -1;
                 numclic = 0;
                 nbpairs = 0;
-                for (int i = 0; i < trouve.length; i++) {
-                    trouve[i] = false;
-                }
+                Arrays.fill(trouve, false);
                 order = shuffle(order);
                 validate();
                 repaint();
