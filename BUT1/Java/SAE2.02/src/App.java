@@ -17,8 +17,7 @@ public class App {
                 /* 12 */ "Bourgogne-Franche-Compté" }) {
             regions.add(new Sommet(Region));
         }
-        i = 0;
-        for (int[] Dests : new int[][] { /* Bretagne */{ 1, 2 },
+        for (int[] Destinations : new int[][] { /* Bretagne */{ 1, 2 },
                 /* Normandie */ { 2, 5, 6, 10 },
                 /* Pays de la Loire */{ 3, 5 },
                 /* Nouvelle-Aquitaine */{ 4, 5, 8 },
@@ -28,7 +27,7 @@ public class App {
                 /* Provence-Alpes-Côte d'Azur" */{ 8, 11 },
                 /* Auvergne-Rhône-Alpes */{ 12 },
                 /* Grand-Est */{ 10, 12 } }) {
-            for (int Dest : Dests) {
+            for (int Dest : Destinations) {
                 double cout = 1;// Math.random() * 10;
                 regions.Get(i).NewChemin(new Chemin(regions.Get(Dest), cout));
                 regions.Get(Dest).NewChemin(new Chemin(regions.Get(i), cout));
