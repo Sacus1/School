@@ -1,0 +1,54 @@
+Init
+
+Open = {1}
+Closed = {}
+distance = {0,∞,∞,∞,∞,∞}
+parent = {null,null,null,null,null,null}
+
+step 1
+
+Current = 1
+Open = {2,3,4}
+Closed = {1}
+distance = {0,3,4,2,∞,∞}
+parent = {null,1,1,1,null,null}
+
+step 2
+
+Current = 4
+Open = {2,3,5,6}
+Closed = {1,4}
+distance = {0,3,4,2,1+v4,4+v4}
+parent = {null,1,1,1,4,4}
+
+step 3
+
+Current = 2
+Open = {3,5,6}
+Closed = {1,4,2}
+distance = {0,3,4,2,1+v4,4+v4}
+parent = {null,1,1,1,4,4}
+
+step 4
+
+Current = 5
+Open = {3,6}
+Closed = {1,4,2,5}
+distance = {0,3,4,2,1+v4,2+v5}
+parent = {null,1,1,1,4,5}
+
+step 5
+
+Current = 3
+Open = {6}
+Closed = {1,4,2,5,3}
+distance = {0,3,4,2,1+v4,2+v5}
+parent = {null,1,1,1,4,5}
+
+step 6
+
+Current = 6
+Open = {}
+Closed = {1,4,2,5,3,6}
+distance = {0,3,4,2,1+v4,2+v5}
+parent = {null,1,1,1,4,5}
