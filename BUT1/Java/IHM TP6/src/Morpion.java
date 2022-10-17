@@ -1,6 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +13,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
  */
 
 public class Morpion extends JFrame {
-    int i = 0;
     JLabel Score, Leader;
     /**
      * Menu Bar;
@@ -41,18 +39,14 @@ public class Morpion extends JFrame {
      * tab: pour desactiver les buttons deja selectionner (false: activer, true:
      * desactiver)
      */
-    private int tableau[] = new int[9];
-    private boolean tab[] = new boolean[9];
+    private final int[] tableau = new int[9];
+    private final boolean[] tab = new boolean[9];
 
     /**
      * The current player; False (Player X) True (Player O)
      */
     private boolean qui = false;
 
-    private String messageHelp = "Bienvenue: occuper trois cases alignées!";
-    /**
-     * Set up the look and feel to make the UI look good.
-     */
     // Vous pouvez commenter cette partie de code pour voir la différence
     // Avec et sans "Nimbus Look and Feel"
     static {
@@ -84,9 +78,6 @@ public class Morpion extends JFrame {
      */
     public Morpion() {
 
-        /**
-         * Using GridLayout to place buttons
-         */
         panel = new JPanel(new GridLayout(3, 3));
 
         // Create an empty border around the panel
@@ -100,24 +91,9 @@ public class Morpion extends JFrame {
         JMenuItem NewGame = new JMenuItem("New game");
         JMenuItem Leave = new JMenuItem("Leave");
         JMenuItem messageAide = new JMenuItem("Help message");
-        NewGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                nouveauJeu();
-            }
-        });
-        Leave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.exit(0);
-            }
-        });
-        messageAide.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                texthelp();
-            }
-        });
+        NewGame.addActionListener(arg0 -> nouveauJeu());
+        Leave.addActionListener(arg0 -> System.exit(0));
+        messageAide.addActionListener(arg0 -> texthelp());
         Menu.add(NewGame);
         Menu.add(Leave);
         Help.add(messageAide);
@@ -139,49 +115,42 @@ public class Morpion extends JFrame {
             jButton.setFont(new Font("", Font.BOLD, 40));
             int boutonId = i;
             // Adds an action listener to each button
-            jButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    // si le case est remplie
-                    if (tab[boutonId]) {
-                        // Afficher une erreur
-                        JOptionPane.showMessageDialog(null, "Chose another case", "Erreur", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    tab[boutonId] = true;
-                    tableau[boutonId] = qui ? 1 : 2;
-                    jButton.setText(qui ? "O" : "X");
-                    if (verifie()) {
-                        for (int i = 0; i < tab.length; i++) {
-                            tab[i] = true;
-                        }
-                        gameOver(qui ? "O" : "X");
-                    }
-                    // Change the current player
-                    qui = !qui;
-                    boolean selected = false;
-                    int r = 0;
-                    // Choix de la case par l'ordinateur (IA)
-                    while (!selected) {
-                        r = (int) (Math.random() * 9);
-                        if (!tab[r]) {
-                            tab[r] = true;
-                            tableau[r] = qui ? 1 : 2;
-                            Buttons[r].setText(qui ? "O" : "X");
-                            selected = true;
-                        }
-                    }
-                    tab[r] = true;
-                    tableau[r] = qui ? 1 : 2;
-                    Buttons[r].setText(qui ? "O" : "X");
-                    if (verifie()) {
-                        for (int i = 0; i < tab.length; i++) {
-                            tab[i] = true;
-                        }
-                        gameOver(qui ? "O" : "X");
-                    }
-                    qui = !qui;
+            jButton.addActionListener(arg0 -> {
+                // si le case est remplie
+                if (tab[boutonId]) {
+                    // Afficher une erreur
+                    JOptionPane.showMessageDialog(null, "Chose another case", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
+                tab[boutonId] = true;
+                tableau[boutonId] = qui ? 1 : 2;
+                jButton.setText(qui ? "O" : "X");
+                if (verifie()) {
+                    Arrays.fill(tab, true);
+                    gameOver(qui ? "O" : "X");
+                }
+                // Change the current player
+                qui = !qui;
+                boolean selected = false;
+                int r = 0;
+                // Choix de la case par l'ordinateur (IA)
+                while (!selected) {
+                    r = (int) (Math.random() * 9);
+                    if (!tab[r]) {
+                        tab[r] = true;
+                        tableau[r] = qui ? 1 : 2;
+                        Buttons[r].setText(qui ? "O" : "X");
+                        selected = true;
+                    }
+                }
+                tab[r] = true;
+                tableau[r] = qui ? 1 : 2;
+                Buttons[r].setText(qui ? "O" : "X");
+                if (verifie()) {
+                    Arrays.fill(tab, true);
+                    gameOver(qui ? "O" : "X");
+                }
+                qui = !qui;
             });
             i++;
         }
@@ -209,6 +178,7 @@ public class Morpion extends JFrame {
      * Help menu
      */
     public void texthelp() {
+        String messageHelp = "Bienvenue: occuper trois cases alignées!";
         JOptionPane.showMessageDialog(null, messageHelp, "AIDE", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -219,9 +189,7 @@ public class Morpion extends JFrame {
      * proposition!
      */
     public boolean verifie() {
-        boolean a = false;
-
-        if ((tableau[0] == 1 && tableau[1] == 1 && tableau[2] == 1) ||
+        return (tableau[0] == 1 && tableau[1] == 1 && tableau[2] == 1) ||
                 (tableau[0] == 2 && tableau[1] == 2 && tableau[2] == 2) ||
 
                 (tableau[3] == 1 && tableau[4] == 1 && tableau[5] == 1) ||
@@ -243,9 +211,7 @@ public class Morpion extends JFrame {
                 (tableau[0] == 2 && tableau[4] == 2 && tableau[8] == 2) ||
 
                 (tableau[2] == 1 && tableau[4] == 1 && tableau[6] == 1) ||
-                (tableau[2] == 2 && tableau[4] == 2 && tableau[6] == 2))
-            a = true;
-        return a;
+                (tableau[2] == 2 && tableau[4] == 2 && tableau[6] == 2);
 
     }
 
@@ -285,13 +251,11 @@ public class Morpion extends JFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Morpion f = new Morpion();
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.pack();
-                f.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            Morpion f = new Morpion();
+            f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            f.pack();
+            f.setVisible(true);
         });
     }
 }

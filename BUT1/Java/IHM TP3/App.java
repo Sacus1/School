@@ -3,8 +3,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
@@ -14,27 +12,26 @@ public class App {
 
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FrameSquelette f = new FrameSquelette("TP3");
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.pack();
-                f.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            FrameSquelette f = new FrameSquelette("TP3");
+            f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            f.pack();
+            f.setVisible(true);
         });
     }
 }
 
 class FrameSquelette extends JFrame implements MouseInputListener {
 
-    private Border raisedbevel, loweredbevel, compound;
+    private final Border compound;
     private Pan p1;
     private JPanel p2, p3, p4;
-    private JLabel CoupL, NBCoupL, PairsL, NBPairsL;
-    private Image[] im = new Image[10];
+    private JLabel NBCoupL;
+    private JLabel NBPairsL;
+    private final Image[] im = new Image[10];
     private int posX = -1, posY = -1, numclic = 0, nbpairs = 0;
     private int[] order = { 10, 9, 1, 2, 4, 2, 7, 6, 5, 10, 3, 3, 8, 9, 1, 8, 6, 5, 4, 7 };
-    private boolean[] trouve = { false, false, false, false, false, false, false, false, false, false, false, false,
+    private final boolean[] trouve = { false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false };
 
     public boolean isFull() {
@@ -53,18 +50,18 @@ class FrameSquelette extends JFrame implements MouseInputListener {
         p2 = new JPanel(new BorderLayout(2, 1));
         p3 = new JPanel();
         p4 = new JPanel();
-        CoupL = new JLabel("Nombre de coup : ");
-        CoupL.setBorder(compound);
+        JLabel coupL = new JLabel("Nombre de coup : ");
+        coupL.setBorder(compound);
         NBCoupL = new JLabel("0");
         NBCoupL.setBorder(compound);
 
-        p3.add(CoupL);
+        p3.add(coupL);
         p3.add(NBCoupL);
-        PairsL = new JLabel("Nombre de pairs decouverts : ");
-        PairsL.setBorder(compound);
+        JLabel pairsL = new JLabel("Nombre de pairs decouverts : ");
+        pairsL.setBorder(compound);
         NBPairsL = new JLabel("0");
         NBPairsL.setBorder(compound);
-        p4.add(PairsL);
+        p4.add(pairsL);
         p4.add(NBPairsL);
         p2.add(p3, BorderLayout.NORTH);
         p2.add(p4, BorderLayout.SOUTH);
@@ -76,8 +73,8 @@ class FrameSquelette extends JFrame implements MouseInputListener {
     public FrameSquelette(String titre) {
         super(titre);
         System.out.println(order.length + " " + trouve.length);
-        raisedbevel = BorderFactory.createRaisedBevelBorder();
-        loweredbevel = BorderFactory.createLoweredBevelBorder();
+        Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+        Border loweredbevel = BorderFactory.createLoweredBevelBorder();
         compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
         buildGui();
     }
@@ -85,9 +82,7 @@ class FrameSquelette extends JFrame implements MouseInputListener {
     public int[] shuffle(int[] o) {
         // Suffle the order of the cards in the array o and return it as a new array o2
         int[] o2 = new int[o.length];
-        for (int i = 0; i < o.length; i++) {
-            o2[i] = o[i];
-        }
+        System.arraycopy(o, 0, o2, 0, o.length);
         for (int i = 0; i < o.length; i++) {
             int r = (int) (Math.random() * o.length);
             int tmp = o2[i];
@@ -103,37 +98,25 @@ class FrameSquelette extends JFrame implements MouseInputListener {
         p3 = new JPanel();
         p4 = new JPanel(new BorderLayout(2, 1));
         JButton Oui = new JButton("Oui");
-        Oui.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                remove(p2);
-                remove(p1);
-                validate();
-                repaint();
-                buildGui();
-                posX = -1;
-                posY = -1;
-                numclic = 0;
-                nbpairs = 0;
-                Arrays.fill(trouve, false);
-                order = shuffle(order);
-                validate();
-                repaint();
-                requestFocus();
-            }
-
+        Oui.addActionListener(arg0 -> {
+            remove(p2);
+            remove(p1);
+            validate();
+            repaint();
+            buildGui();
+            posX = -1;
+            posY = -1;
+            numclic = 0;
+            nbpairs = 0;
+            Arrays.fill(trouve, false);
+            order = shuffle(order);
+            validate();
+            repaint();
+            requestFocus();
         });
         p4.add(Oui, BorderLayout.NORTH);
         JButton Non = new JButton("Non");
-        Non.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.exit(0);
-            }
-
-        });
+        Non.addActionListener(arg0 -> System.exit(0));
         p4.add(Non, BorderLayout.SOUTH);
         JLabel ScoreFinal = new JLabel("Vous avez gagner en " + numclic + " coup voulez vous rejouer");
         p3.add(ScoreFinal);

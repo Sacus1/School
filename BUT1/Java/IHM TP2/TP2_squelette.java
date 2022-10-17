@@ -1,18 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 public class TP2_squelette {
 
 public static void main(String[] args) {
 
- EventQueue.invokeLater(new Runnable() {
-	public void run() {
-		FrameSquelette  f = new FrameSquelette ("TP2 a completer ");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.pack();
-		f.setVisible(true);
-	}
+ EventQueue.invokeLater(() -> {
+	 FrameSquelette  f = new FrameSquelette ("TP2 a completer ");
+	 f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	 f.pack();
+	 f.setVisible(true);
  });
 }
 }
@@ -24,9 +22,8 @@ public static void main(String[] args) {
  */
 class FrameSquelette extends JFrame  {
 
-	private Border raisedbevel;
-	private Pan panneau;
-	private int[][] t; //Tableau representant la grille des cases visitees
+	private final Pan panneau;
+	private final int[][] t; //Tableau representant la grille des cases visitees
 	private int x,y;   //Coordonnees du point courant
 
 
@@ -45,8 +42,6 @@ class FrameSquelette extends JFrame  {
 				t[i][j]=0;
 		t[0][0]=1;		//Premiere case visitee
 		x=0;y=0;		//Initialisation du point courant
-
-		raisedbevel = BorderFactory.createRaisedBevelBorder();
 
 		panneau=new Pan();
 		panneau.addKeyListener(new KeyAdapter(){

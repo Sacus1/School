@@ -1,35 +1,26 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.*;
-import javax.swing.*;
 
 public class App {
 
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Frame f = new Frame("TP4");
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.pack();
-                f.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            Frame f = new Frame("TP4");
+            f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            f.pack();
+            f.setVisible(true);
         });
     }
 }
 
 class Frame extends JFrame {
-    private JMenuBar menuBar;
-    private JMenu fileMenu, editMenu;
-    private JMenuItem newBouton, openBouton, saveBouton;
-    private JMenuItem selectAllBouton, copyBouton, pasteBouton, cutBouton;
     JFileChooser fc = new JFileChooser();
     File f;
-    private JTextArea jta;
-    private JScrollPane jsp;
+    private final JTextArea jta;
 
     public void newFile() {
         jta.setText("");
@@ -46,7 +37,6 @@ class Frame extends JFrame {
                     jta.append(s + "\n");
                     s = bfreader.readLine();
                 }
-                bfreader.close();
             } catch (IOException e) {
                 System.err.println("Impossible d'ouvrir le fichier");
             }
@@ -59,7 +49,6 @@ class Frame extends JFrame {
             f = fc.getSelectedFile();
             try (FileWriter myWriter = new FileWriter(f)) {
                 myWriter.write(jta.getText());
-                myWriter.close();
             } catch (IOException e) {
                 System.err.println("Erreur de lecture");
             }
@@ -71,7 +60,7 @@ class Frame extends JFrame {
         jta = new JTextArea(30, 60);
         jta.setEditable(true); // la zone est éditable
         jta.setLineWrap(true); // le texte passe à la ligne automatiquement
-        jsp = new JScrollPane(jta);// association de la zone de texte avec un ascenseur
+        JScrollPane jsp = new JScrollPane(jta);// association de la zone de texte avec un ascenseur
         jsp.setFocusable(true);
         add(jsp, BorderLayout.NORTH);
         JPanel Panels = new JPanel(new GridLayout(2, 8));
@@ -81,29 +70,19 @@ class Frame extends JFrame {
         JTextField txt2 = new JTextField();
         JLabel txt3 = new JLabel("Text");
 
-        CompterBoutton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                String s = txt1.getText();
-                txt3.setText(
-                        s + " est apparu " + (jta.getText().split(s).length - 1) + "fois");
-            }
-
+        CompterBoutton.addActionListener(arg0 -> {
+            String s = txt1.getText();
+            txt3.setText(
+                    s + " est apparu " + (jta.getText().split(s).length - 1) + "fois");
         });
-        Remplacer.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                String s1 = "";
-                txt3.setText(
-                        txt1.getText() + " est apparu " + (jta.getText().split(txt1.getText()).length - 1) + "fois");
-                for (String s : jta.getText().split(txt1.getText())) {
-                    s1 += s + txt2.getText();
-                }
-                jta.setText(s1);
+        Remplacer.addActionListener(arg0 -> {
+            StringBuilder s1 = new StringBuilder();
+            txt3.setText(
+                    txt1.getText() + " est apparu " + (jta.getText().split(txt1.getText()).length - 1) + "fois");
+            for (String s : jta.getText().split(txt1.getText())) {
+                s1.append(s).append(txt2.getText());
             }
-
+            jta.setText(s1.toString());
         });
         Panels.add(CompterBoutton);
         Panels.add(txt1);
@@ -112,67 +91,31 @@ class Frame extends JFrame {
         add(Panels, BorderLayout.CENTER);
         add(txt3, BorderLayout.SOUTH);
         // Creation du menu
-        menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
-        editMenu = new JMenu("Edit");
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenu editMenu = new JMenu("Edit");
         // Bouton du file
-        newBouton = new JMenuItem("New");
-        openBouton = new JMenuItem("Open");
-        saveBouton = new JMenuItem("Save");
+        JMenuItem newBouton = new JMenuItem("New");
+        JMenuItem openBouton = new JMenuItem("Open");
+        JMenuItem saveBouton = new JMenuItem("Save");
         // Bouton du edit
-        selectAllBouton = new JMenuItem("Select all");
+        JMenuItem selectAllBouton = new JMenuItem("Select all");
         selectAllBouton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
-        copyBouton = new JMenuItem("Copy");
+        JMenuItem copyBouton = new JMenuItem("Copy");
         copyBouton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-        pasteBouton = new JMenuItem("Paste");
+        JMenuItem pasteBouton = new JMenuItem("Paste");
         pasteBouton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
-        cutBouton = new JMenuItem("Cut");
+        JMenuItem cutBouton = new JMenuItem("Cut");
         cutBouton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
         // Event des bouton
-        openBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openFile();
-            }
-        });
-        newBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                newFile();
-            }
-        });
-        saveBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveFile();
-            }
-        });
-        selectAllBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jta.selectAll();
-            }
-        });
-        copyBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jta.copy();
-            }
-        });
-        cutBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jta.cut();
-            }
-        });
-        pasteBouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jta.paste();
-
-            }
-        });
+        openBouton.addActionListener(e -> openFile());
+        newBouton.addActionListener(e -> newFile());
+        saveBouton.addActionListener(e -> saveFile());
+        selectAllBouton.addActionListener(e -> jta.selectAll());
+        copyBouton.addActionListener(e -> jta.copy());
+        cutBouton.addActionListener(e -> jta.cut());
+        pasteBouton.addActionListener(e -> jta.paste());
         // Mise en place des objet dans la fenetre
         fileMenu.add(newBouton);
         fileMenu.add(openBouton);
