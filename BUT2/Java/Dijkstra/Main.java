@@ -70,12 +70,16 @@ public class Main {
 
         return graph;
     }
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Graph graph = graph2();
         System.out.println(graph);
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
-        dijkstra.execute(graph.getVertexes().get(0));
+        try {
+            dijkstra.execute(graph.getVertexes().get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         dijkstra.displayCurrentState();
     }
 }
