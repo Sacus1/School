@@ -6,7 +6,7 @@ public class DijkstraAlgorithm {
     public int[] distance;
     public int[] previous;
 
-    Graph graph;
+    final Graph graph;
 
     public DijkstraAlgorithm(Graph graph) {
         this.graph = graph;
@@ -26,13 +26,13 @@ public class DijkstraAlgorithm {
 
     /**
      * @param node The source node
-     * @return List of neighnors
+     * @return List of neighbors
      */
     public List<Vertex> getNeighbors(Vertex node) {
         List<Vertex> neighbors = new ArrayList<>();
         for (Edge edge : graph.getEdges()) {
-            if (edge.getSource().equals(node) && !closed.contains(edge.getDestination())) {
-                neighbors.add(edge.getDestination());
+            if (edge.source().equals(node) && !closed.contains(edge.destination())) {
+                neighbors.add(edge.destination());
             }
         }
         return neighbors;
@@ -100,7 +100,7 @@ public class DijkstraAlgorithm {
      *
      * @param sourceNode Premier sommet
      */
-    public void execute(Vertex sourceNode) throws Exception {
+    public void execute(Vertex sourceNode) throws EdgeNotFoundException {
         init(sourceNode);
         // tant qu’il y a des sommets à explorer
         while (!open.isEmpty()) {
@@ -110,27 +110,24 @@ public class DijkstraAlgorithm {
             open.remove(node);
             //on l’ajoute à l’ensemble CLOSED
             closed.add(node);
-            //on récupère les voisins du sommet current (qui ne sont pas dans CLOSED)
+            //on récupère les voisins du sommet current (qui ne sont pas dans CLOSED).
             List<Vertex> neighbors = getNeighbors(node);
             // on les parcourt et on vérifie s’il faut mettre à jour les distances
             for (Vertex neighbor : neighbors) {
                 // on récupère le coût de l’arête entre current et neighbor
-                try {
-                    int edgeWeight = graph.getDistance(node, neighbor);
-                    // on additionne la distance jusqu’au current avec le coût de l’arête
-                    int newDistance = distance[node.getId()] + edgeWeight;
-                    //si la distance jusqu’à neighbor dans la table des distances est > à la nouvelle distance
-                    if (newDistance < distance[neighbor.getId()]) {
-                        //on met à jour la distance dans la table des distances
-                        distance[neighbor.getId()] = newDistance;
-                        //on met à jour le prédécesseur dans la table des prédécesseurs
-                        previous[neighbor.getId()] = node.getId();
-                        //on ajoute le sommet dans l’ensemble OPEN
-                        open.add(neighbor);
-                    }
-                } catch (Exception e) {
-                    throw new Exception("Error in the graph : An edge is missing");
+                int edgeWeight = graph.getDistance(node, neighbor);
+                // on additionne la distance jusqu’au current avec le coût de l’arête
+                int newDistance = distance[node.getId()] + edgeWeight;
+                //si la distance jusqu’à neighbor dans la table des distances est > à la nouvelle distance
+                if (newDistance < distance[neighbor.getId()]) {
+                    //on met à jour la distance dans la table des distances
+                    distance[neighbor.getId()] = newDistance;
+                    //on met à jour le prédécesseur dans la table des prédécesseurs
+                    previous[neighbor.getId()] = node.getId();
+                    //on ajoute le sommet dans l’ensemble OPEN
+                    open.add(neighbor);
                 }
+
             }
         }
     }
