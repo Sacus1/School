@@ -1,5 +1,5 @@
 public class App {
-    private static Graphe FranceModerne() throws Exception {
+    private static Graphe FranceModerne() throws GraphException {
         Graphe regions = new Graphe(13);
         int i = 0;
         for (String Region : new String[] { /* 0 */ "Bretagne",

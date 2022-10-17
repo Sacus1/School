@@ -11,7 +11,7 @@ public class Graphe {
     }
 
 
-    public Graphe(Graphe g) throws Exception { // Constructeur par recopie
+    public Graphe(Graphe g) throws GraphException { // Constructeur par recopie
         this(g.taille);
         for (int i = 0; i < g.length(); i++) {// On parcourt tout le sommet du graphe à recopier
             add(g.Get(i));// On l'ajoute au nouveau graphe
@@ -20,12 +20,12 @@ public class Graphe {
 
     /**
      * @param s le sommet a ajouté
-     * @throws Exception Graphe surchargé
+     * @throws GraphException Graphe surchargé
      *  ajoute 1 à taille et rajoute le sommet à la liste
      */
-    public void add(Sommet s) throws Exception {
+    public void add(Sommet s) throws GraphException {
         if (this.s.length < taille + 1) {
-            throw new Exception("Graphe surchargé");
+            throw new GraphException("Graphe surchargé");
         } else
             this.s[taille++] = s;
     }
@@ -93,9 +93,9 @@ public class Graphe {
      * @param Sommet1 Indice sommet d'arriver
      * @param Sommet2 Indice sommet de depart
      * @return Graphe du plus court chemin
-     * @throws Exception Graphe vide
+     * @throws GraphException Erreur impromptus
      */
-    public Graphe PlusCourtChemin(int Sommet1, int Sommet2) throws Exception {
+    public Graphe PlusCourtChemin(int Sommet1, int Sommet2) throws GraphException {
         Graphe sBar = new Graphe(this); // Sommet a explorer
         Sommet[] Precedents = new Sommet[taille]; // Sommet precedent chaque point
         Sommet i = s[Sommet1]; // Sommet actuel
