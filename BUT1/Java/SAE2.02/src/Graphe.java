@@ -6,7 +6,7 @@ public class Graphe {
       100000; // Une valeur normalement impossible a atteindre est considered comme infini
   private int taille =
       0; // indice du dernier element de la liste de sommet (donne aussi l'ordre du graphe / taille
-         // du tableau)
+  // du tableau)
 
   public Graphe(int taille) {
     s = new Sommet[taille];
@@ -136,7 +136,7 @@ public class Graphe {
     while (j != Sommet1
         && Precedents[j]
             != null) { // et on ajoute tous les sommets du chemin juste qu'à l'arrivée ou qu'il n'y
-                       // ait plus de predecessor
+      // ait plus de predecessor
       chemin.add(Precedents[j]);
       j = Get(Precedents[j]);
     }

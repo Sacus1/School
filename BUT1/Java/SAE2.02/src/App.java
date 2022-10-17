@@ -4,7 +4,7 @@ public class App {
     int i = 0;
     for (String Region :
         new String[] {
-            /* 0 */
+          /* 0 */
           "Bretagne",
           /* 1 */ "Normandie",
           /* 2 */ "Pays de La Loire",
@@ -23,7 +23,7 @@ public class App {
     }
     for (int[] Destinations :
         new int[][] {
-            /* Bretagne */
+          /* Bretagne */
           {1, 2},
           /* Normandie */ {2, 5, 6, 10},
           /* Pays de la Loire */ {3, 5},
