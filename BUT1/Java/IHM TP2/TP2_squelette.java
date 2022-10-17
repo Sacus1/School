@@ -82,7 +82,9 @@ class FrameSquelette extends JFrame {
         for (int j = 0; j < 25; j++)
           if (t[i][j] == 1)
             g.fillOval(
-                20 * j + 10, 20 * i + 10, 5,
+                20 * j + 10,
+                20 * i + 10,
+                5,
                 5); // Si une case a ete visitee, dessiner un rond jaune
     }
   }
