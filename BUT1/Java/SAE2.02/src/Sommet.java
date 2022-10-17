@@ -1,14 +1,13 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Sommet {
-    private ArrayList<Chemin> chemins = new ArrayList<Chemin>(); // Liste des chemin accessible depuis ce sommet
-    private String nom;
+    private final ArrayList<Chemin> chemins = new ArrayList<>(); // Liste des chemins accessible depuis ce sommet
+    private final String nom;
 
     public Sommet(String nom, Chemin[] c) {
         this.nom = nom;
-        for (Chemin chemin : c) {
-            chemins.add(chemin);
-        }
+        Collections.addAll(chemins, c);
     }
 
     public Sommet(String nom) {
@@ -16,7 +15,7 @@ public class Sommet {
     }
 
     /**
-     * @return Tout les chemin relier a ce sommet
+     * @return Tous les chemins relier à ce sommet
      */
     public Chemin[] GetChemins() {
         Chemin[] c = new Chemin[] {};
@@ -24,7 +23,7 @@ public class Sommet {
     }
 
     /**
-     * @param Le chemin a ajouter
+     * @param c Le chemin a ajouter
      */
     public void NewChemin(Chemin c) {
         chemins.add(c);
@@ -34,13 +33,12 @@ public class Sommet {
      * @return Nom du sommet
      */
     public String toString() {
-        return new String(nom);
+        return nom;
     }
 
     public boolean equals(Object object) {
-        if (!(object instanceof Sommet))
+        if (!(object instanceof Sommet s))
             return false;
-        Sommet s = (Sommet) object;
         return nom.equals(s.toString());
     }
 }

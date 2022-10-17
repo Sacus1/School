@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 public class Graphe {
-    private Sommet[] s; // Une liste des sommet du graphe
-    private final static double INFINITY = 100000; // Une valeur normalement impossible a atteindre est considerer comme infini
-    private int taille = 0; // indice du derniere element de la liste de sommet (donne aussi l'ordre du graphe / taille du tableau)
+    private final Sommet[] s; // Une liste du sommet du graphe
+    private final static double INFINITY = 100000; // Une valeur normalement impossible a atteindre est considered comme infini
+    private int taille = 0; // indice du dernier element de la liste de sommet (donne aussi l'ordre du graphe / taille du tableau)
 
 
     public Graphe(int taille) {
@@ -10,24 +12,16 @@ public class Graphe {
 
 
     public Graphe(Graphe g) throws Exception { // Constructeur par recopie
-        this(g.length());
-        for (int i = 0; i < g.length(); i++) {// On parcours tout les sommet du graphe a recopier
+        this(g.taille);
+        for (int i = 0; i < g.length(); i++) {// On parcourt tout le sommet du graphe à recopier
             add(g.Get(i));// On l'ajoute au nouveau graphe
         }
     }
 
-    public Graphe(Graphe g, int taille) throws Exception { // Constructeur par recopie mais avec une taille personnalisé
-        this(taille);
-        for (int i = 0; i < g.length(); i++) { // On parcours tout les sommet du graphe a recopier
-            add(g.Get(i)); // On l'ajoute au nouveau graphe
-        }
-    }
-
     /**
-     * @param le sommet a ajoute
-     * @throws Exception(Graphe surchargé)
-     *                          ajoute 1 a taille et rajoute le sommet, si le graphe
-     *                          est plein throw une exception
+     * @param s le sommet a ajouté
+     * @throws Exception Graphe surchargé
+     *  ajoute 1 à taille et rajoute le sommet à la liste
      */
     public void add(Sommet s) throws Exception {
         if (this.s.length < taille + 1) {
@@ -37,10 +31,10 @@ public class Graphe {
     }
 
     /**
-     * @param indice du sommet a supprimer
+     * @param indice du sommet à supprimer
      */
     public void remove(int indice) {
-        for (int i = indice + 1; i < taille; i++) { //On decalle tout les element du tableau et ecrase l'element a supprimer
+        for (int i = indice + 1; i < taille; i++) { //On décale tout les element du tableau et écrase l'élément à supprimer
             s[i - 1] = s[i];
         }
         taille--;
@@ -50,7 +44,7 @@ public class Graphe {
      * @param sommet a supprimer
      */
     public void remove(Sommet sommet) {
-        for (int i = 0; i < taille; i++) { //On parcours le tableau de sommet pour chercher le sommet
+        for (int i = 0; i < taille; i++) { //On parcourt le tableau de sommet pour chercher le sommet
             if (s[i].equals(sommet)) {
                 remove(i);
                 return;
@@ -66,8 +60,8 @@ public class Graphe {
     }
 
     /**
-     * @param indice
-     * @return Sommet
+     * @param indice indice du sommet a retourner
+     * @return Sommet a l'indice
      */
     public Sommet Get(int indice) {
         return s[indice];
@@ -75,7 +69,7 @@ public class Graphe {
 
     /**
      *
-     * @param sommet
+     * @param sommet sommet a chercher
      * @return l'indice du sommet ou -1 si inexistant
      */
     public int Get(Sommet sommet) {
@@ -88,60 +82,58 @@ public class Graphe {
     }
 
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < taille; i++) {
-            s += "\n" + this.s[i].toString();
+            s.append("\n").append(this.s[i].toString());
         }
-        return s;
+        return s.toString();
     }
 
     /**
-     * @param Indice sommet d arrive
-     * @param Indice sommet de depart
+     * @param Sommet1 Indice sommet d'arriver
+     * @param Sommet2 Indice sommet de depart
      * @return Graphe du plus court chemin
-     * @throws Exception
+     * @throws Exception Graphe vide
      */
     public Graphe PlusCourtChemin(int Sommet1, int Sommet2) throws Exception {
-        Graphe Sbar = new Graphe(this); // Sommet a explorer
-        Sommet[] Prec = new Sommet[taille]; // Sommet precedant chaque point
+        Graphe sBar = new Graphe(this); // Sommet a explorer
+        Sommet[] Precedents = new Sommet[taille]; // Sommet precedent chaque point
         Sommet i = s[Sommet1]; // Sommet actuel
-        double coutPrec = 0;
-        double coutSommet[] = new double[taille]; // cout d'arrive a chaque sommet
-        for (int j = 0; j < coutSommet.length; j++) { // on initialise le tableau a infini pour chaque sommet
-            coutSommet[j] = INFINITY;
-        }
-        coutSommet[Get(i)] = 0; // On met le sommet de depart a 0
-        while (Sbar.length() > 0) {
-            Sbar.remove(i); // On enleve le sommet actuel des sommet a exploer
-            Chemin[] gamma = i.GetChemins(); // On recupere les successeur du sommet
-            for (Chemin c : gamma) { // On parcours les successeur
-                if (Sbar.Get(c.GetDest()) > -1) { // Verifie si il est dans les sommet a explorer
-                    double cout = c.GetCout() + coutPrec;
+        double coutPre = 0;
+        double[] coutSommet = new double[taille]; // cout d'arriver à chaque sommet
+        // on initialise le tableau à infini pour chaque sommet
+        Arrays.fill(coutSommet, INFINITY);
+        coutSommet[Get(i)] = 0; // On met le sommet de depart à zero
+        while (sBar.length() > 0) {
+            sBar.remove(i); // On enlève le sommet actuel des sommets à explorer
+            Chemin[] gamma = i.GetChemins(); // On récupère les successeurs du sommet
+            for (Chemin c : gamma) { // On parcourt les successeurs
+                if (sBar.Get(c.GetDest()) > -1) { // Vérifie s'il est dans les sommets à explorer
+                    double cout = c.GetCout() + coutPre;
                     int sommetIndice = Get(c.GetDest());
                     if (coutSommet[sommetIndice] > cout) { // Si le nouveau chemin est plus court
                         coutSommet[sommetIndice] = cout;
-                        Prec[sommetIndice] = i;
+                        Precedents[sommetIndice] = i;
                     }
                 }
             }
             double mini = INFINITY;
-            for (int j = 0; j < Sbar.length() && Sbar.Get(j) != (Sommet) null; j++) { // On cherche le plus court chemin dans Sbar
+            for (int j = 0; j < sBar.length() && sBar.Get(j) != null; j++) { // On cherche le plus court chemin dans sBar
                                                                                       
-                int sommetIndice = Get(Sbar.Get(j));
+                int sommetIndice = Get(sBar.Get(j));
                 if (coutSommet[sommetIndice] < mini) {
                     mini = coutSommet[sommetIndice];
-                    i = Sbar.Get(j);
+                    i = sBar.Get(j);
                 }
             }
-            coutPrec = coutSommet[Get(i)];
+            coutPre = coutSommet[Get(i)];
         }
         Graphe chemin = new Graphe(taille);
         int j = Sommet2;
         chemin.add(Get(j)); // On ajoute le sommet de depart au graphe
-        while (j != Sommet1 && Prec[j] != (Sommet) null) { // et on ajoute tout les sommet du chemin juste qu'a
-                                                           // l'arriver ou qu'il n'y ai plus de predecesseur
-            chemin.add(Prec[j]);
-            j = Get(Prec[j]);
+        while (j != Sommet1 && Precedents[j] != null) { // et on ajoute tous les sommets du chemin juste qu'à l'arrivée ou qu'il n'y ait plus de predecessor
+            chemin.add(Precedents[j]);
+            j = Get(Precedents[j]);
         }
 
         return chemin;
