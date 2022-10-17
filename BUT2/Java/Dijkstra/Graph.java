@@ -27,18 +27,18 @@ public class Graph {
     }
 
     /**
-     * @param node The source node
+     * @param node   The source node
      * @param target Target node
      * @return the edge between node and target
-     * @throws Exception When there is no edge between node and target
+     * @throws EdgeNotFoundException When there is no edge between node and target
      */
-    public int getDistance(Vertex node, Vertex target) throws Exception {
+    public int getDistance(Vertex node, Vertex target) throws EdgeNotFoundException {
         for (Edge edge : edges) {
-            if (edge.getSource().equals(node) && edge.getDestination().equals(target)) {
-                return edge.getWeight();
+            if (edge.source().equals(node) && edge.destination().equals(target)) {
+                return edge.weight();
             }
         }
-        throw new Exception("No edge between " + node + " and " + target);
+        throw new EdgeNotFoundException(node, target);
     }
 
     /**
@@ -49,8 +49,8 @@ public class Graph {
         for (Vertex vertex : vertexes) {
             sb.append("Node ").append(vertex).append(" is connected to:\n");
             for (Edge edge : edges) {
-                if (edge.getSource().equals(vertex)) {
-                    sb.append("Node ").append(edge.getDestination()).append(" with distance ").append(edge.getWeight()).append("\n");
+                if (edge.source().equals(vertex)) {
+                    sb.append("Node ").append(edge.destination()).append(" with distance ").append(edge.weight()).append("\n");
                 }
             }
             sb.append("\n");

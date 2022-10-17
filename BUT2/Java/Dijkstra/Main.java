@@ -77,7 +77,7 @@ public class Main {
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
         try {
             dijkstra.execute(graph.getVertexes().get(0));
-        } catch (Exception e) {
+        } catch (EdgeNotFoundException e) {
             e.printStackTrace();
         }
         dijkstra.displayCurrentState();
