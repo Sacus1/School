@@ -2,3 +2,6 @@
 *.class
 *.iml
 .vscode
+*/doc/*
+*/doc
+/BUT2/Java/Astar/doc/
