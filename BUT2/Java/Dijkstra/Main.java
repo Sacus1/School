@@ -72,7 +72,7 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        Graph graph = graph2();
+        Graph graph = graph1();
         System.out.println(graph);
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
         try {
@@ -81,5 +81,14 @@ public class Main {
             e.printStackTrace();
         }
         dijkstra.displayCurrentState();
+        System.out.println("\nShortest path from V1 to V6: " + dijkstra.getPath(graph.getVertexes().get(3)));
+        graph = graph2();
+        dijkstra = new DijkstraAlgorithm(graph);
+        try {
+            dijkstra.execute(graph.getVertexes().get(0));
+        } catch (EdgeNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Shortest path from A to E: " + dijkstra.getPath(graph.getVertexes().get(3)));
     }
 }
