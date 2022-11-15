@@ -1,0 +1,14 @@
+Triangle : 
+a  b  c res
+// quelconque
+3  4  5 3
+4  3  5 3
+// invalide
+3  4 -2 4
+-Min Max Max 4
+2  1  1 4
+// isocele
+2  2  1  2
+2  1  2  2
+1  2  2  2
+
