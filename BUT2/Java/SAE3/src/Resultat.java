@@ -1,5 +1,5 @@
 public class Resultat {
-	private final int[] score = new int[2];
+  private final int[] score = new int[2];
   private final Membre[] membres = new Membre[2];
   private String videoPath;
   private String[] imagesPath;
@@ -15,32 +15,33 @@ public class Resultat {
   public void setVideoPath(String videoPath) {
     this.videoPath = videoPath;
   }
+
   public void addImagePath(String imagePath) {
     // TODO
   }
 
-  public Membre GetGagnant(){
-      // TODO
-      return null;
+  public Membre GetGagnant() {
+    // TODO
+    return null;
   }
 
-  public int GetScore(Membre membre){
-      // TODO
-      return 0;
+  public int GetScore(Membre membre) {
+    // TODO
+    return 0;
   }
 
-  public Membre[] GetMembres(){
-      // TODO
-      return null;
+  public Membre[] GetMembres() {
+    // TODO
+    return null;
   }
 
-  public String GetVideoPath(){
-      // TODO
-      return null;
+  public String GetVideoPath() {
+    // TODO
+    return null;
   }
 
-  public String[] GetImagesPath(){
-      // TODO
-      return null;
+  public String[] GetImagesPath() {
+    // TODO
+    return null;
   }
 }
