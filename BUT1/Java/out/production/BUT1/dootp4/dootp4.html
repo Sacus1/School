@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>DOO TP4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#AAAAAA" text="#4F2F1F">
+    <h2>DOO - Canevas du TP 4 : Encapsulation et paquetages</h2>
+    <b>Avertissement :</b>
+    <p> Le paquetage d&eacute;velopp&eacute; dans ce TP sera utilis&eacute;
+        dans le TP suivant. Si le TP est inachev&eacute;, il faudra le
+        terminer pour le prochain. </p>
+
+    <b>Attendus :</b>
+    <dl>
+      <dd> - D&eacute;velopper une classe &agrave; partir d'un diagramme; </dd>
+      <dd> - Savoir utiliser un paquetage; </dd>
+      <dd> - Savoir r&eacute;aliser un paquetage. </dd>
+    </dl>
+
+    <b>Organisation</b>
+    <dl>
+      <dd> - Travail en bin&ocirc;me; </dd>
+      <dd> - Dans un groupe de TP impair, un &eacute;tudiant restera seul
+           (pas de trin&ocirc;me); </dd>
+      <dd> - Les &eacute;tudiants se r&eacute;partiront le travail en
+           alternant le d&eacute;veloppement de la classe, les tests
+           standards et les tests graphiques; </dd>
+      <dd> - Le paquetage <tt>lignes.jar</tt> et sa documentation seront
+           compos&eacute;s de toutes les classes du bin&ocirc;me. </dd>
+    </dl>
+
+    <b>A rendre en fin de TP :</b>
+    <dl>
+      <dt> D&eacute;poser sur Arche une archive ZIP (seul format
+           accept&eacute;) par bin&ocirc;me, avec : </dt>
+      <dd> - le compte-rendu (PDF + DOC/ODT), </dd>
+      <dd> - les sources r&eacute;alis&eacute;s, </dd>
+      <dd> - la documentation <b>compl&egrave;te</b> des classes
+           <tt>Point</tt> et <tt>Segment</tt>. </dd>
+      <dd> - <b>Rien d'autre</b> (pas les fichiers <tt>.class</tt>,
+           ni l'&eacute;nonc&eacute;). </dd>
+    </dl>
+
+    <b>Evaluation :</b>
+    <p>L'&eacute;valuation de ce TP portera sur la qualit&eacute; du
+       d&eacute;veloppement et sur la forme du rendu
+       (fichier source qui compile et ex&eacute;cute, compte-rendu
+       s&eacute;rieux, documentation compl&egrave;te, absence de fichiers
+       parasites) plut&ocirc;t que sur la quantit&eacute; de code produite.
+       Le r&eacute;sultat sera un bonus/malus adoss&eacute; &agrave; la
+       note du prochain TP not&eacute;. </p>
+
+    <b>Important :</b>
+    <p> Dans ce TP, vous n'&ecirc;tes pas sens&eacute;s &ecirc;tre experts
+        math&eacute;maticiens ou graphistes. <u>Tous</u> les services
+        math&eacute;matiques ou graphiques dont vous aurez besoin pour
+        r&eacute;pondre aux questions seront demand&eacute;s &agrave; des
+        instances des classes du paquetage <tt>geodessin</tt>, y-compris
+        des notions simples comme un calcul de distance ou un test
+        d'identit&eacute; de points. Veiller &agrave; n'importer
+        <b>que</b> ce qui est effectivement utile &agrave; la classe
+        d&eacute;velopp&eacute;e. </p>
+    <p> Les m&eacute;thodes devront syst&eacute;matiquement &ecirc;tre
+        test&eacute;es en comparant la r&eacute;ponse fournie avec des
+        valeurs test, et en effectuant des v&eacute;rifications graphiques
+        s'appuyant sur les services de la classe <tt>Afficheur</tt>.
+        Penser &agrave; <u>bien lire la documentation</u> de la classe
+        <tt>Afficheur</tt> pour la faire fonctionner.
+        Les tests doivent &ecirc;tre lanc&eacute;s depuis des classes de test.
+        Les sources Java des classes de test devront &ecirc;tre fournis
+        en fin de TP, dans l'archive &agrave; rendre. </p>
+
+    <h4>Travail &agrave; r&eacute;aliser</h4>
+    <p> Si ce n'est pas d&eacute;j&agrave; fait, extraire de l'archive
+        <tt>dootp4.tgz</tt> le paquetage <tt>geodessin.jar</tt> dont la
+        <a href=doc/index.html>documentation</a> est (aussi) accessible
+        <a href=doc/index.html>ici</a>. </p>
+    <p> <a href="uml/uml.pdf">
+             <img src="uml/uml.png"></a> </p>
+    <p> L'objectif est de r&eacute;aliser un nouveau paquetage
+        <tt>lignes.jar</tt> compos&eacute; des classes du diagramme UML
+        ci-dessus. Pour cela, les fichiers java devront &ecirc;tre
+        plac&eacute;s dans un r&eacute;pertoire de m&ecirc;me nom que le
+        paquetage, et apr&egrave;s l'en-t&ecirc;te de fichier, on doit
+        trouver l'instruction : <br>
+        <tt>package lignes;</tt> </p>
+    <p> Pour que le paquetage <tt>geodessin</tt> soit trouv&eacute; &agrave;
+        la compilation et &agrave; l'ex&eacute;cution, il faudra commencer
+        par mettre &agrave; jour la variable d'environnement <tt>CLASSPATH</tt>
+        &agrave; l'aide de la commande : <br>
+        <tt>export CLASSPATH=$CLASSPATH:"CHEMIN"/geodessin.jar</tt> <br>
+        dans laquelle <tt>"CHEMIN"</tt> correspond au chemin absolu depuis la
+        racine vers le fichier <tt>geodessin.jar</tt>. </p>
+    <p> Les fichiers sources devront &ecirc;tre compil&eacute;s depuis le
+        r&eacute;pertoire sup&eacute;rieur, par exemple, avec la commande : <br>
+        <tt>javac lignes/Point.java</tt>. </p>
+
+    <h4>Recommandations g&eacute;n&eacute;rales :</h4>
+    <ul>
+      <dt> Veiller &agrave; bien respecter la syntaxe du diagramme UML
+          (intitul&eacute; des attributs et m&eacute;thodes,
+          cardinalit&eacute;s). </dt>
+      <dt> Penser &agrave; trouver un <b>constructeur principal</b>
+          pertinent pour chaque classe. </dt>
+      <dt> Pour la r&eacute;alisation des tests g&eacute;om&eacute;triques,
+          s'appuyer sur les services de la classe <tt>Geometre</tt>.
+          En particulier, cette classe utilise une valeur de granularit&eacute;
+          pour les comparaisons de valeurs r&eacute;elles. Pour r&eacute;aliser
+          des tests, une valeur de 0.01 est judicieuse. </dt>
+      <dt> Il faudra s'assurer que les conversions en cha&icirc;ne de
+          caract&egrave;res proposent un format bien adapt&eacute; &agrave;
+          une int&eacute;gration dans tout type de messages. </dt>
+    </ul>
+    <h4>Recommandations pour la classe Point :</h4>
+    <ul>
+      <dt> Dans le constructeur par recopie et dans l'accesseur fournissant
+          les coordonn&eacute;es, les coordonn&eacute;es du point doivent
+          &ecirc;tre recopi&eacute;es. </dt>
+      <dt> Le point sym&eacute;trique de <tt>P</tt> autour du centre <tt>C</tt>
+          peut &ecirc;tre trouv&eacute; en parcourant le double du chemin
+          de <tt>P</tt> &agrave; <tt>C</tt>. </dt>
+    </ul>
+    <h4>Recommandations pour la classe Segment :</h4>
+    <ul>
+      <dt> Attention : l'intersection entre les droites support des
+          segments n'est pas n&eacute;cessairement sur les deux segments. </dt>
+      <dt> L'inverse du segment AB est le segment BA. </dt>
+      <dt> Le test <tt>coupe</tt> v&eacute;rifie si 2 segments se coupent. </dt>
+      <dt> Le test <tt>contient</tt> v&eacute;rifie si le point en
+          param&egrave;tre appartient au segment, extr&eacute;mit&eacute;s
+          y-comprises. </dt>
+      <dt> Le test <tt>aGauche</tt> v&eacute;rifie si le point en
+          param&egrave;tre est situ&eacute; strictement sur la gauche du
+          segment en le parcourant du point de d&eacute;part au point
+          d'arriv&eacute;e (le point n'est pas sur le segment). </dt>
+    </ul>
+  </body>
+</html>
