@@ -2,6 +2,11 @@ package main;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GreyImageTest {
@@ -179,10 +184,40 @@ class GreyImageTest {
 	@Test
 	public void Negative() throws OutOfBoundException, WrongSizeException {
 		GreyImage img = new GreyImage(2,3,new short[]{1,2,3,4,5,6});
-		GreyImage img2 = img.negative();
+		int i = 0;
+		short pixel = img.getPixel(i);
 		short max = img.getMax();
-		// pixel i : max - i
-		assertEquals(max-1, img2.getPixel(0,0),"Pixel should be 5");
-		assertEquals(max-2, img2.getPixel(1,0),"Pixel should be 4");
+		img.negative();
+		// pixel[i] : max - pixel[i]
+		assertEquals(max-pixel, img.getPixel(i),"Pixel should be 5");
+	}
+
+	@Test
+	public void loadPGM() throws IOException, WrongSizeException, OutOfBoundException {
+		// print path to this file
+		GreyImage img = GreyImage.loadPGM("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/Lena.pgm");
+		// image is 241x375
+		assertEquals(512, img.getSizeX(),"Width should be 512");
+		assertEquals(512, img.getSizeY(),"Height should be 512");
+	}
+	@Test
+	public void writePGMNegate() throws IOException, OutOfBoundException, WrongSizeException {
+		GreyImage img = GreyImage.loadPGM("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/Lena.pgm");
+		img.negative();
+		img.writePGM("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/Lena2.pgm");
+	}
+	@Test
+	public void writePGMAllImageNegate() throws IOException, OutOfBoundException, WrongSizeException {
+		// get all image in resources
+		String[] paths;
+		File f = new File("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/");
+		paths = f.list();
+		for(String path : paths) {
+			if(path.endsWith(".pgm")) {
+				GreyImage img = GreyImage.loadPGM("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/"+path);
+				img.negative();
+				img.writePGM("/home/sacus/Documents/Code/School/BUT2/Java/GreyImage/src/test/resources/"+path + ".out");
+			}
+		}
 	}
 }

@@ -1,8 +1,12 @@
 package main;
 
+import java.io.IOException;
+
 public class GreyImage {
-	private final int dimX, dimY, size; // dimensions and size of the image
-	private final short[] data; // array of pixels
+	private int dimX = 0;
+	private int dimY = 0;
+	private int size = 0; // dimensions and size of the image
+	private short[] data = new short[0]; // array of pixels
 
 	public GreyImage(int dimX, int dimY, short[] data) throws WrongSizeException, OutOfBoundException {
 		if (dimX < 0 || dimY < 0)
@@ -138,11 +142,24 @@ public class GreyImage {
 	 *
 	 * @return the negative of the image
 	 */
-	public GreyImage negative() throws WrongSizeException, OutOfBoundException {
-		GreyImage img = new GreyImage(this);
+	public void negative() throws WrongSizeException, OutOfBoundException {
 		short max = getMax();
 		for (int i = 0; i < size; i++)
-			img.data[i] = (short) (max - data[i]);
+			data[i] = (short) (max - data[i]);
+	}
+	public static GreyImage loadPGM(String filename) throws IOException {
+		PGMFileIO pgm = new PGMFileIO(filename);
+		GreyImage img = null;
+		pgm.readPGM();
+		try {
+			img = new GreyImage(pgm.getSizeX(), pgm.getSizeY(), pgm.getData());
+		} catch (WrongSizeException | OutOfBoundException e) {
+			e.printStackTrace();
+		}
 		return img;
+	}
+	public void writePGM(String filename) throws IOException {
+		PGMFileIO pgm = new PGMFileIO(filename);
+		pgm.writePGM(dimX, dimY, data);
 	}
 }
