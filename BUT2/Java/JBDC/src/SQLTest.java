@@ -47,6 +47,30 @@ public class SQLTest {
 		// remove test in admin table
 		sql.executeUpdate("DELETE FROM `admin` WHERE `login` = 'test'");
 	}
+	@Test
+	public void update(){
+		// store old password
+		String oldPassword = "";
+		ResultSet rs = sql.select("SELECT * FROM `admin` WHERE `login` = 'Sacus'");
+		try {
+			rs.next();
+			oldPassword = rs.getString("password");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// update password
+		sql.executeUpdate("UPDATE `admin` SET `password` = 'test' WHERE `login` = 'Sacus'");
+		// check if password is updated
+		rs = sql.select("SELECT * FROM `admin` WHERE `login` = 'Sacus'");
+		try {
+			rs.next();
+			assertEquals("test", rs.getString("password"), "Password should be updated");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// restore old password
+		sql.executeUpdate("UPDATE `admin` SET `password` = '" + oldPassword + "' WHERE `login` = 'Sacus'");
+	}
 	@AfterAll
 	public static void close(){
 		sql.close();
