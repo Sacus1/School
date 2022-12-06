@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/sacus/Documents/Code/School/BUT2/C Select CMakeLists.txt
