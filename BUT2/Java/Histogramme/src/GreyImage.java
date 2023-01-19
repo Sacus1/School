@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class GreyImage {
 	private int dimX = 0;
@@ -101,7 +104,15 @@ public class GreyImage {
 		} else
 			throw new OutOfBoundException("The position is not valid");
 	}
-
+	public void setPixel(int i, short value) throws OutOfBoundException {
+		if (!(i < 0 || i >= size)) {
+			if (value < 0 || value > 255)
+				throw new OutOfBoundException("The value is not valid");
+			else
+				data[i] = value;
+		} else
+			throw new OutOfBoundException("The position is not valid");
+	}
 	/**
 	 * is the position valid ?
 	 *
@@ -239,5 +250,105 @@ public class GreyImage {
 		}
 		img.truncate((short)0,(short)255);
 		return img;
+	}
+	GreyImage gradient(GreyImage Ix,GreyImage Iy){
+		GreyImage img = null;
+		try {
+			img = new GreyImage(dimX, dimY,new short[dimX*dimY]);
+		} catch (WrongSizeException | OutOfBoundException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < size; i++) {
+			double k = Math.sqrt(Ix.data[i]*Ix.data[i]+Iy.data[i]*Iy.data[i]);
+			img.data[i] = k> 255 ? (short) 255 : k<0 ? (short) 0 : (short) k;
+		}
+		return img;
+	}
+	GreyImage addRandomNoise(double p){
+		GreyImage img = null;
+		try {
+			img = new GreyImage(dimX, dimY,new short[dimX*dimY]);
+		} catch (WrongSizeException | OutOfBoundException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < size; i++) {
+			double k = Math.random();
+			if(k<p){
+				img.data[i] = (short) (Math.random() > .5 ? 255 : 0);
+			}else{
+				img.data[i] = data[i];
+			}
+		}
+		return img;
+	}
+	GreyImage addGaussianNoise(double mean,double std) throws OutOfBoundException {
+		GreyImage img = null;
+		try {
+			img = new GreyImage(dimX, dimY,new short[dimX*dimY]);
+		} catch (WrongSizeException | OutOfBoundException e) {
+			e.printStackTrace();
+		}
+		double rand;
+		Random r = new Random();
+		for(int i=0; i<this.size; i++)
+		{
+			rand = r.nextGaussian();
+			rand = mean + std*rand;
+			while (rand+getPixel(i) < 0 || rand+getPixel(i) > 255) {
+				rand = r.nextGaussian();
+				rand = mean + std*rand;
+			}
+			try {
+				img.setPixel(i, (short) (this.getPixel(i) + rand));
+			} catch (OutOfBoundException e) {
+				System.out.println(i+" "+(short) (this.getPixel(i) + rand));
+			}
+		}
+		return img;
+	}
+
+	GreyImage medianFilter(int n) {
+		GreyImage img = null;
+		try {
+			img = new GreyImage(dimX, dimY,new short[dimX*dimY]);
+		} catch (WrongSizeException | OutOfBoundException e) {
+			e.printStackTrace();
+		}
+		int x, y;
+		// size of M = 2p +1 * 2p +1
+		int p = n / 2;
+		for (int i = 0; i < size; i++) {
+			x = i % dimX;
+			y = i / dimX;
+			if (!isPosValid(x-p, y-p) || !isPosValid(x+p, y+p)) {
+				continue;
+			}
+			ArrayList<Short> list = new ArrayList<>();
+			for (int k = 0; k < 2 * p + 1; k++) {
+				for (int l = 0; l < 2 * p + 1; l++) {
+					try {
+						short val = getPixel(x + k - p, y + l - p);
+						list.add(val);
+					} catch (OutOfBoundException e) {
+						System.err.println("Error in convolve at position (" + x + "," + y + ")");
+						return null;
+					}
+				}
+			}
+			Collections.sort(list);
+			img.data[i] = list.get(list.size()/2);
+		}
+		return img;
+	}
+	double computeNMSE(GreyImage img) throws OutOfBoundException {
+		double norme= 0;
+		double diff = 0;
+
+		for(int i=0; i<this.size; i++)
+		{
+			norme += this.getPixel(i)*this.getPixel(i);
+			diff += (this.getPixel(i)-img.getPixel(i))*(this.getPixel(i)-img.getPixel(i));
+		}
+		return diff/norme;
 	}
 }
