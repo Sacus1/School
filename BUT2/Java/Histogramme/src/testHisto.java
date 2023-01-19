@@ -46,7 +46,14 @@ public class testHisto {
     // convolution Sobel horizontal
     GreyImage imH = GreyImage.loadPGM(args[0] + ".pgm");
     short[] w2 = {
-      (short) -1, (short) -2, (short) -1, (short) 0, (short) 0, (short) 0, (short) 1, (short) 2,
+      (short) -1,
+      (short) -2,
+      (short) -1,
+      (short) 0,
+      (short) 0,
+      (short) 0,
+      (short) 1,
+      (short) 2,
       (short) 1
     };
     Mask M2 = new Mask(3, 3, w2);
@@ -55,7 +62,14 @@ public class testHisto {
     // convolution Sobel vertical
     GreyImage imV = GreyImage.loadPGM(args[0] + ".pgm");
     short[] w3 = {
-      (short) -1, (short) 0, (short) 1, (short) -2, (short) 0, (short) 2, (short) -1, (short) 0,
+      (short) -1,
+      (short) 0,
+      (short) 1,
+      (short) -2,
+      (short) 0,
+      (short) 2,
+      (short) -1,
+      (short) 0,
       (short) 1
     };
     Mask M3 = new Mask(3, 3, w3);
@@ -67,8 +81,15 @@ public class testHisto {
     // convolution -1 16
     im = GreyImage.loadPGM(args[0] + ".pgm");
     short[] w5 = {
-      (short) -1, (short) -1, (short) -1, (short) -1, (short) 16, (short) -1, (short) -1,
-      (short) -1, (short) -1
+      (short) -1,
+      (short) -1,
+      (short) -1,
+      (short) -1,
+      (short) 16,
+      (short) -1,
+      (short) -1,
+      (short) -1,
+      (short) -1
     };
     Mask M5 = new Mask(3, 3, w5);
     img = im.convolve(M5);
