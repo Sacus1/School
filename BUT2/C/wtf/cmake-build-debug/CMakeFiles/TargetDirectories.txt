@@ -1,0 +1,3 @@
+/home/sacus/Documents/Code/School/BUT2/C/wtf/cmake-build-debug/CMakeFiles/wtf.dir
+/home/sacus/Documents/Code/School/BUT2/C/wtf/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/sacus/Documents/Code/School/BUT2/C/wtf/cmake-build-debug/CMakeFiles/rebuild_cache.dir

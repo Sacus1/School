@@ -1,0 +1,59 @@
+version: '3'
+
+networks:
+  foogood_net:
+
+services:
+  server: # Nom du micro service (server = service web)
+    build: # Instruction pour build l'image
+      context: ./build
+      dockerfile: Dockerfile
+    container_name: '${APP_NAME}-server' # Nom du container
+    restart: always # Politique de redémarrage lorsque le serveur redémarre 
+    ports:
+      # TODO Port de l'application
+      - '30001:30001' # Port npm dev (cf. plus tard ==> Frontend)
+    working_dir: /var/www/html
+    environment:
+      # TODO : APP_NAME / MYSQL_ROOT_PASS / MYSQL_DATABASE 
+      # en utilisant les variables définies dans le .env (cf db_server)
+      - TZ: 'Europe/Paris' # TimeZone
+    volumes:
+      # TODO : ajoutez les 2 volumes comme avec le docker run ;)
+      # RQ : Vous serez avisés de remplacer le $PWD par . (cf. db_server)
+    depends_on:
+      - db_server # Pour forcer l'ordre de démarrage des conteneurs
+    networks:
+      - foogood_net # Spécifie le même réseau virtuel que les autres conteneurs
+
+
+  db_server: # Nom du micro service de la BDD
+    image: mariadb:10.5.9 # Basée sur une image officielle mariadb (dockerhub)
+    container_name: '${APP_NAME}-db' # Nom du container
+    restart: always # Politique de redémarrage lorsque le serveur redémarre 
+    ports:
+      - '${DB_PORT}:3306' # Port mysql
+    environment: # variables d'environnement visibles à l'intérieur du conteneur "db_server" (requis pour mariadb)
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASS}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASS}'
+      MYSQL_DATABASE: '${MYSQL_DB}'
+    volumes:
+      - ./db/data/:/var/lib/mysql # Le volume qui contiendra toutes les données persistentes de la BDD
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf # fichier de conf mariadb
+      - ./db/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql # script d'initialisation de la BDD (lancé au démarrage de mariadb)
+    networks:
+      - foogood_net # Spécifie le même réseau virtuel que les autres conteneurs
+
+  db_admin: # Nom du micro service PhpMyAdmin
+    image: phpmyadmin # Basée sur une image officielle phpmyadmin (dockerhub)
+    container_name: '${APP_NAME}-db-admin' # Nom du container
+    restart: always # Politique de redémarrage lorsque le serveur redémarre 
+    ports:
+      - '${APP_DB_ADMIN_PORT}:80' # Port d'accès à la page web d'admin de PhpMyAdmin
+    environment:
+      PMA_HOST: db_server # Hostname (nom du micro-service dans la stack) du conteneur de BDD
+    depends_on:
+      - db_server  # Pour forcer l'ordre de démarrage des conteneurs
+    networks:
+      - foogood_net # Spécifie le même réseau virtuel que les autres conteneurs
