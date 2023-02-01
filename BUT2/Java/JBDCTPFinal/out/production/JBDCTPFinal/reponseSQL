@@ -1,0 +1,26 @@
+1)
+SELECT sum(nbPrest) FROM achat;
+31
+2)
+SELECT numCarte,sum(montant) FROM depot GROUP BY numCarte;
+numcarte sum(montant)
+C1 65
+C2 25
+C3 20
+C4 20
+C5 45
+C6 20
+3)
+SELECT nom,sum(montant) FROM depot JOIN usager ON depot.numCarte=usager.numCarte GROUP BY nom;
+nom sum(montant)
+Bernard 20
+Gerard 45
+Michel 20
+Nathalie 20
+Pierre 65
+Suzanne 25
+4)
+SELECT sum(tarif.prix*achat.nbPrest) FROM achat
+JOIN tarif ON achat.numPrest=tarif.numPrest
+JOIN ticket ON achat.numTicket=ticket.numTicket
+WHERE ticket.numCarte = (Select numCarte FROM usager WHERE nom = 'Pierre');
