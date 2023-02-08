@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP 1</title>
+    <style>
+body { margin: 0; }
+canvas { width: 100%; height: 100% }
+.centre{text-align: center;}
+
+    </style>
+</head>
+<body>
+<!-- API importe du site de Three.js -->
+<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://threejs.org/build/three.module.js",
+            "three/addons/": "https://threejs.org/examples/jsm/"
+        }
+    }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Un titre centre -->
+<h1 class="centre"> TP 1 - Modelisation</h1>
+<div id="webGL" class="centre"></div>
+<!-- Mon script avec un chemin relatif -->
+<script src="5-2.js" type="module"></script>
+</body>
+</html>
