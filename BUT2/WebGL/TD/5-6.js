@@ -1,31 +1,26 @@
 "use strict"; // good practice - see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-/*global THREE, Coordinates, $, document, window, dat*/
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import {dat} from "/lib/dat.gui.min.js";
 import {Coordinates} from "../lib/Coordinates.js";
 
-let camera, renderer;
-let cameraControls;
 
+let camera,  renderer;
+let cameraControls, effectController;
 const clock = new THREE.Clock();
 
-// Student: here's the variable to use for the headlight
-let headlight;
-
+let light;
 function fillScene() {
     window.scene = new THREE.Scene();
     window.scene.fog = new THREE.Fog( 0xAAAAAA, 2000, 4000 );
 
     // LIGHTS
-    // Student: remove the ambient light, add a headlight;
-    // See render() for making the headlight match the camera position
-    window.scene.add( new THREE.AmbientLight( 0xFFFFFF ) );
-    headlight = new THREE.PointLight( 0xFFFFFF, 1);
-    ////////////////////
-    window.scene.add( headlight );
+    window.scene.add( new THREE.AmbientLight( 0x222222 ) );
 
+    light = new THREE.DirectionalLight( 0xFFFFFF, 1.5 );
+    light.position.set( 0, 100, 0 );
+    window.scene.add( light );
     // MATERIALS
     const headMaterial = new THREE.MeshLambertMaterial();
     headMaterial.color.r = 104/255;
@@ -62,7 +57,6 @@ function fillScene() {
 
     let sphere, cylinder, cube;
 
-    const bevelRadius = 1.9;	// TODO: 2.0 causes some geometry bug.
 
     // MODELS
     // base
@@ -226,7 +220,6 @@ function init() {
     renderer.setSize(canvasWidth, canvasHeight);
     renderer.setClearColor( 0xAAAAAA, 1.0 );
 
-
     // CAMERA
     camera = new THREE.PerspectiveCamera( 35, canvasWidth/ canvasHeight, 1, 4000 );
     camera.position.set( -1160, 350, -600 );
@@ -236,6 +229,7 @@ function init() {
     cameraControls.target.set(0,310,0);
 
 }
+
 function drawHelpers() {
     Coordinates.drawGround({size:10000});
     Coordinates.drawGrid({size:10000,scale:0.01});
@@ -258,20 +252,33 @@ function animate() {
 function render() {
     const delta = clock.getDelta();
     cameraControls.update(delta);
-
-    // Student: set the headlight's position here.
-    headlight.position.set(camera.position.x, camera.position.y, camera.position.z);
-    ///////////////
+    light.target.position.set(
+        Math.sin(effectController.azimuth*Math.PI/180.0)*Math.cos(effectController.altitude*Math.PI/180.0)*1000,
+        Math.sin(effectController.altitude*Math.PI/180.0)*1000,
+        Math.cos(effectController.azimuth*Math.PI/180.0)*Math.cos(effectController.altitude*Math.PI/180.0)*1000);
+    light.target.updateMatrixWorld();
+    console.log(light.target.position);
     renderer.render(window.scene, camera);
+}
+
+function setupGui() {
+    effectController = {
+        azimuth: 160,
+        altitude: 60
+    };
+    const gui = new dat.GUI();
+    gui.add( effectController, "azimuth", 0.0, 360.0 ).name("azimuth");
+    gui.add( effectController, "altitude", -90.0, 90.0 ).name("altitude");
 }
 
 try {
     init();
     fillScene();
+    setupGui();
     drawHelpers();
     addToDOM();
     animate();
-} catch(e) {
+}  catch(e) {
     const errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
     $('#webGL').append(errorReport+e.stack);
 }
