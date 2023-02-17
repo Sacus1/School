@@ -21,7 +21,7 @@ var windowScale;
 
 function exampleTriangle() {
 	// This code demonstrates how to draw a triangle
-	var triangle = new THREE.BufferGeometry();
+	const triangle = new THREE.BufferGeometry();
 
 	const vertices = new Float32Array( [
 		1.0, 1.0,  0.0,
@@ -36,7 +36,7 @@ function exampleTriangle() {
 
 function drawSquare(x1, y1, x2, y2) {
 
-	var square = new THREE.BufferGeometry();
+	const square = new THREE.BufferGeometry();
 	// square = 2 triangles (6 vertices)
 	const vertices = new Float32Array( [
 		x1, y1,  0.0,
@@ -53,20 +53,20 @@ function drawSquare(x1, y1, x2, y2) {
 
 function init() {
 	// Set up some parameters
-	var canvasWidth = 846;
-	var canvasHeight = 494;
+	const canvasWidth = 846;
+	const canvasHeight = 494;
 	// For grading the window is fixed in size; here's general code:
 	//var canvasWidth = window.innerWidth;
 	//var canvasHeight = window.innerHeight;
-	var canvasRatio = canvasWidth / canvasHeight;
+	const canvasRatio = canvasWidth / canvasHeight;
 	// Camera: Y up, X right, Z up
 	windowScale = 12;
-	var windowWidth = windowScale * canvasRatio;
-	var windowHeight = windowScale;
+	const windowWidth = windowScale * canvasRatio;
+	const windowHeight = windowScale;
 
 	camera = new THREE.OrthographicCamera(windowWidth/-2, windowWidth/2, windowHeight/2, windowHeight/-2, 0, 40);
 
-	var focus = new THREE.Vector3( 5,5,0 );
+	const focus = new THREE.Vector3(5, 5, 0);
 	camera.position.x = focus.x;
 	camera.position.y = focus.y;
 	camera.position.z = 20;
@@ -80,8 +80,8 @@ function init() {
 }
 
 function addToDOM() {
-	var container = document.getElementById('webGL');
-	var canvas = container.getElementsByTagName('canvas');
+	const container = document.getElementById('webGL');
+	const canvas = container.getElementsByTagName('canvas');
 	if (canvas.length>0) {
 		container.removeChild(canvas[0]);
 	}
@@ -104,18 +104,18 @@ try {
 	init();
 	showGrids();
 	// creating and adding the triangle to the scene
-	var triangleMaterial = new THREE.MeshBasicMaterial( { color: 0x2685AA, side: THREE.DoubleSide } );
-	var triangleGeometry = exampleTriangle();
-	var triangleMesh = new THREE.Mesh( triangleGeometry, triangleMaterial );
+	const triangleMaterial = new THREE.MeshBasicMaterial({color: 0x2685AA, side: THREE.DoubleSide});
+	const triangleGeometry = exampleTriangle();
+	const triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial);
 	window.scene.add(triangleMesh);
 	// creating and adding your square to the scene !
-	var square_material = new THREE.MeshBasicMaterial( { color: 0xF6831E, side: THREE.DoubleSide } );
-	var square_geometry =  drawSquare(3,5,7,9);
-	var square_mesh = new THREE.Mesh(square_geometry, square_material);
+	const square_material = new THREE.MeshBasicMaterial({color: 0xF6831E, side: THREE.DoubleSide});
+	const square_geometry = drawSquare(3, 5, 7, 9);
+	const square_mesh = new THREE.Mesh(square_geometry, square_material);
 	window.scene.add(square_mesh);
 	addToDOM();
 	render();
 } catch(e) {
-	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
+	const errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
 	$('#webGL').append(errorReport+e);
 }
