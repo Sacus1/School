@@ -12,6 +12,8 @@ CREATE TABLE Personne (
 
 LOAD DATA INFILE "/docker-entrypoint-initdb.d/personnes.csv" REPLACE INTO TABLE Personne
 FIELDS TERMINATED BY ','
-ENCLOSED BY '"' LINES TERMINATED BY '\n'
+LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(id, nom, prenom, naissance, deces, nationalite, artiste);
+(id, nom, prenom, naissance, @deces, nationalite, @artiste)
+SET deces = NULLIF(@deces, ''),
+    artiste = NULLIF(@artiste, '');
