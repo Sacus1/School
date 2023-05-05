@@ -12,9 +12,10 @@ services:
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
       - mariadb:/var/lib/mysql
+      - ./mariadb/:/docker-entrypoint-initdb.d/:ro
   adminer:
     image: myadminer
     container_name: adminer
     build: ./adminer
     ports:
-      - 8001:8080
+      - 8001:80
