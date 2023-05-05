@@ -1,3 +1,7 @@
+/*
+Created by Samy Midouni , Lucas Poirot
+
+*/
 package org.example;
 
 
@@ -59,6 +63,8 @@ public class Principale {
 			moyenne = calculateur.calculMoyenne();
 			mediane = calculateur.calculMediane();
 			utilisateur = new UtilisateurTab(prenom, nom, email, dateExamen, n, moyenne, mediane);
+
+			utilisateur.saveToFile("danke.txt");
 			System.out.println("La somme des éléments est égale à " + Sum);
 			System.out.println("****FIN PROGRAMME****");
 		}

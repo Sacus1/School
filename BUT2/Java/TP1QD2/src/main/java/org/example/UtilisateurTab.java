@@ -3,8 +3,8 @@ package org.example;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class UtilisateurTab {
 	//Prénom, nom, email, date de l’examen, nombre d’étudiants, la moyenne et la médiane.
@@ -43,6 +43,31 @@ public class UtilisateurTab {
 		this.mediane = mediane;
 	}
 
+	static UtilisateurTab loadFromFile(String filename) {
+		// load from JSON
+		FileReader file = null;
+		try {
+			file = new FileReader(filename);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			assert file != null;
+			// read file
+			String prenom = String.valueOf(file.read());
+			String nom = String.valueOf(file.read());
+			String email = String.valueOf(file.read());
+			String date = String.valueOf(file.read());
+			int nombreEtudiants = file.read();
+			float moyenne = file.read();
+			float mediane = file.read();
+			file.close();
+			return new UtilisateurTab(prenom, nom, email, date, nombreEtudiants, moyenne, mediane);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	String getPrenom() {
 		return prenom;
@@ -71,6 +96,7 @@ public class UtilisateurTab {
 	float getMediane() {
 		return mediane;
 	}
+
 	void saveToFile(String filename) {
 		FileWriter file = null;
 		try {
@@ -91,17 +117,5 @@ public class UtilisateurTab {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	static UtilisateurTab loadFromFile(String filename) {
-		// load from JSON
-		FileReader file = null;
-		try {
-			file = new FileReader(filename);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-
-
 	}
 }
