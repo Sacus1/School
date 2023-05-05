@@ -37,5 +37,10 @@ class UtilisateurTabTest {
 		assertThatThrownBy(() -> new UtilisateurTab("John", "1", "John.doe@mail.com",
 						"20-11-2023", 10, 10, 10)).isInstanceOf(IllegalArgumentException.class);
 	}
-
+	@Test
+	void testSave(){
+		UtilisateurTab user = new UtilisateurTab("John", "1", "John.doe@mail.com","20-11-2023",10,10,10);
+		user.saveToFile("t1");
+		//
+	}
 }
