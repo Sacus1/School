@@ -1,0 +1,20 @@
+volumes:
+  mariadb:
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - mariadb:/var/lib/mysql
+  adminer:
+    image: myadminer
+    container_name: adminer
+    build: ./adminer
+    ports:
+      - 8001:8080
