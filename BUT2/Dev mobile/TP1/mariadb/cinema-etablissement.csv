@@ -1,4 +1,4 @@
-"id","nom","voie","ville","st_y","st_x"
+"id","nom","voie","codepostal","ville","st_y","st_x"
 31,"Ugc Normandie","116 AVENUE DES CHAMPS ELYSEES","Paris 8e Arrondissement","48.872265","2.300938"
 35,"Balzac","1 RUE BALZAC","Paris 8e Arrondissement","48.872431","2.299525"
 54,"Gaumont Champs Elysees Marignan","27/33 AVENUE DES CHAMPS ELYSEES","Paris 8e Arrondissement","48.869654","2.306873"
