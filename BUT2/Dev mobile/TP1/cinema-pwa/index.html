@@ -26,14 +26,7 @@
           <div class="center">Page 1</div>
         </ons-toolbar>
 
-        <ons-list>
-            <ons-list-item tappable id="acteur-1">
-                acteur 1
-            </ons-list-item>
-            <ons-list-item tappable id="acteur-2">
-                acteur 2
-            </ons-list-item>
-        </ons-list>
+        <ons-list id="personnes"></ons-list>
       </ons-page>
     </template>
 
@@ -44,23 +37,95 @@
           <div class="center"></div>
         </ons-toolbar>
 
-        <p>This is the second page.</p>
+        <ons-list id="films"></ons-list>
+
       </ons-page>
+    </template>
+    <template id="ligne_personne">
+      <ons-list-item modifier="chevrons" tappable>
+        <div class="center">
+          <span class="list-item__title">Nom</span>&nbsp;
+          <span class="list-item__subtitle">Prénom</span>
+        </div>
+
+      </ons-list-item>
+    </template>
+    <template id="ligne_film">
+        <ons-list-item modifier="chevrons" tappable>
+            <div class="center">
+            <span class="list-item__title">Nom</span>&nbsp;
+            <span class="list-item__subtitle">Prénom</span>
+            </div>
+
+        </ons-list-item>
     </template>
     <script>
       document.addEventListener("init", function (event) {
         var page = event.target;
 
         if (page.id === "page1") {
-            getPersonnes();
+          getPersonnes();
         } else if (page.id === "page2") {
           page.querySelector("ons-toolbar .center").innerHTML = page.data.title;
+          console.log(page.data.id);
+          getFilms(page.data.id);
         }
       });
       async function getPersonnes() {
         const response = await fetch(`http://localhost:8002/records/Personne`);
         const data = await response.json();
-        console.log(data);
+        const list = document.querySelector("#page1 ons-list#personnes");
+        for (const element of data.records) {
+            // create a new list item element in person list
+            // Methode 1 : createElement
+            /*
+               var newItem = document.createElement("ons-list-item");
+            newItem.innerHTML = element.nom;
+            newItem.setAttribute("tappable", "");
+            newItem.setAttribute("onclick", "showPersonne(" + element.id + ")");
+            list.appendChild(newItem);
+            */
+           // Methode 2 : template
+              var newItem = document.querySelector("#ligne_personne").content.cloneNode(true);
+                newItem.querySelector(".list-item__title").innerHTML = element.nom;
+                newItem.querySelector(".list-item__subtitle").innerHTML = element.prenom;
+                newItem.firstElementChild.addEventListener("click", function (evt) {
+                    const navigator = document.querySelector("#myNavigator");
+                        navigator.pushPage("page2.html", {
+                        data: {
+                            title: element.nom,
+                            id : element.id
+                        },
+            })
+                });
+                list.appendChild(newItem);
+        }
+      }
+
+      async function getFilms(id) {
+        const response = await fetch(`http://localhost:8002/records/Personne/`+id+`?join=Equipe%2CFilm`);
+        const data = await response.json();
+        console.log(data.Equipe)
+        const list = document.querySelector("#page2 ons-list#films");
+        for (const equipe of data.Equipe) {
+          // create a new list item element in person list
+          var newItem = document
+            .querySelector("#ligne_film")
+            .content.cloneNode(true);
+          newItem.querySelector(".list-item__title").innerHTML = equipe.film.titre;
+          newItem.querySelector(".list-item__subtitle").innerHTML =
+            equipe.film.annee
+          newItem.firstElementChild.addEventListener("click", function (evt) {
+            const navigator = document.querySelector("#myNavigator");
+            navigator.pushPage("page3.html", {
+              data: {
+                title: equipe.nom,
+                id: evt.target.id,
+              },
+            });
+          });
+          list.appendChild(newItem);
+        }
       }
     </script>
   </body>
