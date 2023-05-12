@@ -1,0 +1,44 @@
+{
+"display_override": ["window-controls-overlay"],
+"protocol_handlers": [{"protocol":"mailto","url":"/newEmail?to=%s"}],
+"name": "Cinema pwa",
+"short_name": "Cinema pwa",
+"start_url": "http://127.0.0.1:5500/index.html",
+"display": "standalone",
+"description": "Trouver les seances de vos films préférés",
+"lang": "fr-FR",
+"dir": "auto",
+"theme_color": "#acacac",
+"background_color": "#000000",
+"orientation": "any",
+"icons": [
+    {
+        "src": "http://127.0.0.1:5500/assets/icons/icon_512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+    },
+    {
+        "src": "http://127.0.0.1:5500/assets/icons/icon_192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+    }
+],
+"screenshots": [
+    {
+        "src": "http://127.0.0.1:5500/assets/screenshots/screenshot_1.png",
+        "sizes": "2880x1800",
+        "type": "image/png",
+        "description": "A screenshot of the home page"
+    }
+],
+"prefer_related_applications": false,
+"shortcuts": [
+    {
+        "name":"Cinema PWA",
+        "url":"/",
+        "description":"Trouver les seances de vos films préférés"
+    }
+]
+}

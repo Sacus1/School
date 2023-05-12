@@ -1,5 +1,0 @@
-###
-GET http://localhost:8002/records/Personne
-
-### GET Film ###
-GET http://localhost:8002/records/Film
