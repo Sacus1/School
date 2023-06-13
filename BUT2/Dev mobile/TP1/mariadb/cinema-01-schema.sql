@@ -24,6 +24,8 @@ CREATE TABLE Film (
   `duree` integer,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL ON UPDATE current_timestamp(),
+  `note` decimal(4,3),
+  `n_notes` integer,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
