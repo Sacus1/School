@@ -10,7 +10,7 @@ import {Coordinates} from "../lib/Coordinates.js";
 let camera, renderer;
 let cameraControls;
 const clock = new THREE.Clock();
-const teapotSize = 400;
+const teapotSize = 50;
 
 import { TeapotGeometry } from './TeapotGeometry.js';
 
@@ -20,7 +20,8 @@ function createMaterial() {
     const material = new THREE.MeshPhongMaterial({shininess: 50});
     material.color.setHSL( 0.09, 0.46, 0.2 );
     material.specular.setHSL( 0.09, 0.46, 1.0 );
-
+    material.specularMap = new THREE.TextureLoader().load('textures/cracked_n.png');
+    material.normalMap = new THREE.TextureLoader().load('textures/cracked_n.png');
     return material;
 }
 
@@ -37,10 +38,8 @@ function fillScene() {
 
     const material = createMaterial();
     const teapot = new THREE.Mesh(
-        new TeapotGeometry(teapotSize,
-            8, true, true, true, true, true),
+        new TeapotGeometry(teapotSize,10,true,true,true,false,true),
         material);
-
     window.scene.add( teapot );
 }
 
