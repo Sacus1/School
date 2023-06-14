@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Historique</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <style>
+    {box-sizing: border-box;}
+
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      margin: 20%;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+      width: 90%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="defi.html">D&eacute;fiez-moi</a>
+    <a href="history.html">Historique</a>
+  </nav>
+  <button class="open-button" onclick="openForm()">Login</button>
+  <!-- The form -->
+  <div class="form-popup" id="login">
+    <form class="form-container">
+      <h1>Login</h1>
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <button type="submit" class="btn" onclick="validateForm()">Login</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+
+  </div>
+  <div id="connected" style="display: none;">
+    <button onclick="downloadGuessesImages()">Download all image</button>
+    <!-- Image , date, guess ,win? -->
+    <div id="guess">
+      <img src="" alt="Your photo" id="guess-image" width="200" height="200">
+      <p id="guess-date"></p>
+      <p id="guess-answer"></p>
+      <p id="guess-result"></p>
+      <button class="guess-previous">Previous</button>
+      <button class="guess-next">Next</button>
+    </div>
+
+  </div>
+  <script src="JSHistory.js"></script>
+  <script>
+    // if there's a token in local storage, we are logged in so remove the login button
+    console.log(localStorage.getItem("token"));
+    if (localStorage.getItem("token") !== null) {
+      console.log("token exists")
+      document.getElementsByClassName("open-button")[0].style.display = "none";
+      document.getElementById("connected").style.display = "block";
+    }
+    function openForm() {
+      document.getElementById("login").style.display = "block";
+    }
+    function closeForm() {
+      document.getElementById("login").style.display = "none";
+    }
+    function validateForm() {
+      const email = document.forms["login"]["email"].value;
+      const password = document.forms["login"]["password"].value;
+      login(email, password);
+    }
+  </script>
+  <div id="error"></div>
+</body>
+
+</html>
