@@ -12,7 +12,7 @@ REPLACE INTO TABLE Film
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id,titre,titre_original,annee,sortie,duree);
+(id,titre,titre_original,annee,sortie,duree,note,n_notes);
 
 LOAD DATA INFILE '/docker-entrypoint-initdb.d/cinema-equipe.csv'
 REPLACE INTO TABLE Equipe

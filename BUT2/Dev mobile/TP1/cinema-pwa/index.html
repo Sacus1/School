@@ -6,16 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="manifest" href="./manifest.json"/>
     <meta name="theme-color" content="#acacac"/>
-    <script>
-    navigator.serviceWorker.register("service-worker.js");
-
-    function openActor() {
-        {
-            const navigator = document.querySelector('#myNavigator');
-            navigator.pushPage('acteur.html');
-        }
-    }
-    </script>
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css"/>
     <link
             rel="stylesheet"
@@ -29,6 +19,7 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <title>Title</title>
 </head>
 <body>
@@ -52,6 +43,9 @@
                 align-items: center;
                 color: #ffffff;
             }
+            .decoupe{
+                clip-path: polygon(0 0,var(--pvote) 0,var(--pvote) 100%,0 100%);
+            }
         </style>
         <div style="display: flex;justify-content:space-around;">
         <div class="icon">
@@ -60,6 +54,9 @@
         <div class="icon">
             <ons-icon onclick="openMap()" icon="fa-map-marker" size="28px"></ons-icon>
         </div>
+            <div class="icon">
+                <ons-icon onclick="openTicket()" icon="fa-ticket-alt" size="28px"></ons-icon>
+            </div>
         </div>
     </ons-page>
 </template>
@@ -67,7 +64,7 @@
     <ons-page id="acteur">
         <ons-toolbar>
             <div class="left">
-                <ons-back-button>Acceuil</ons-back-button>
+                <ons-back-button>Accueil</ons-back-button>
             </div>
             <div class="center">Acteurs</div>
         </ons-toolbar>
@@ -82,7 +79,7 @@
     <ons-page id="carte">
         <ons-toolbar>
             <div class="left">
-                <ons-back-button>Acceuil</ons-back-button>
+                <ons-back-button>Accueil</ons-back-button>
             </div>
             <div class="center">Cinémas</div>
         </ons-toolbar>
@@ -144,23 +141,32 @@
         <!-- Titre , sortie , duree , note-->
         <div class="center">
             <img class="image" src="" alt="" width="100"/>
-            <span class="list-item__title">Titre</span>;
+            <span class="list-item__title">Titre</span>
             <span class="list-item__subtitle">
-                <span class="sortie"></span><br>;
-                <span class="duree"></span><br>;
-                <span class="note"></span><br>;
-                <span >
-                <svg xmlns="http://www.w3.org/2000/svg"  height="30" viewBox="0 0 500 100" class="star">
+                <span class="sortie"></span><br>
+                <span class="duree"></span><br>
+                <span class="note"></span><br>
+                <span>
+                <svg xmlns="http://www.w3.org/2000/svg"  height="30" viewBox="0 0 500 100" id="stars">
                     <defs>
                         <symbol id="star">
                             <path class="path" d="m50,2 12,34h36l-28,22 10,34-30-20-30,20 10-34-28-22h36z" />
                         </symbol>
                     </defs>
-                    <use xlink:href="#star" x="0" y="0" id="star-1" class="etoile" onclick="addStar(0)" />
-                    <use xlink:href="#star" x="100" y="0" id="star-2" class="etoile" onclick="addStar(1)"/>
-                    <use xlink:href="#star" x="200" y="0" id="star-3" class="etoile" onclick="addStar(2)"/>
-                    <use xlink:href="#star" x="300" y="0" id="star-4" class="etoile" onclick="addStar(3)"/>
-                    <use xlink:href="#star" x="400" y="0" id="star-5" class="etoile" onclick="addStar(4)"/>
+                    <g>
+                        <use xlink:href="#star" x="0" y="0" id="star-1" onclick="addStar(0)" />
+                        <use xlink:href="#star" x="100" y="0" id="star-2"  onclick="addStar(1)"/>
+                        <use xlink:href="#star" x="200" y="0" id="star-3"  onclick="addStar(2)"/>
+                        <use xlink:href="#star" x="300" y="0" id="star-4"  onclick="addStar(3)"/>
+                        <use xlink:href="#star" x="400" y="0" id="star-5"  onclick="addStar(4)"/>
+                    </g>
+                    <g fill="gold" class="decoupe">
+                        <use xlink:href="#star" x="0" y="0" id="star-1"  onclick="addStar(0)" />
+                        <use xlink:href="#star" x="100" y="0" id="star-2"  onclick="addStar(1)"/>
+                        <use xlink:href="#star" x="200" y="0" id="star-3"  onclick="addStar(2)"/>
+                        <use xlink:href="#star" x="300" y="0" id="star-4"  onclick="addStar(3)"/>
+                        <use xlink:href="#star" x="400" y="0" id="star-5"  onclick="addStar(4)"/>
+                    </g>
                 </svg>
 
             </span>
@@ -168,193 +174,17 @@
         </div>
     </ons-page>
 </template>
-<script>
-    let list_acteurs = [];
-    let list_markers = new Set();
-    async function addStar(number) {
-        let topPage = myNavigator.topPage;
-        const id = topPage.data.id_film;
-        let note = (topPage.data.note * topPage.data.n_notes + number + 1) / (topPage.data.n_notes + 1)
-        topPage.data.note = note;
-        topPage.data.n_notes += 1;
-        // round note to 3 decimals
-        note = Math.round(note * 1000) / 1000
-        // get all class star
-        let stars = document.querySelectorAll(".etoile")
-        for (let i = 0; i < stars.length; i++) {
-            if (i < note) {
-                stars[i].setAttribute("fill", "yellow")
-            } else {
-                stars[i].setAttribute("fill", "black")
-            }
-        }
-        const data = await fetch(`http://127.0.0.1:8002/records/Film/${id}`, {
-            method: "PUT",
-            body: JSON.stringify({
-                "note": note,
-                "n_notes": topPage.data.n_notes
-            })
-        })
-        topPage.querySelector(".note").innerHTML = "note de " + note + " sur 5";
-        console.log(data)
-
-    }
-    document.addEventListener("init", function (event) {
-        const page = event.target;
-
-        if (page.id === "acteur") {
-            getPersonnes();
-        } else if (page.id === "page2") {
-            page.querySelector("ons-toolbar .center").innerHTML = page.data.title;
-            getFilms(page.data.id);
-        }
-        else if (page.id === "page3") {
-            page.querySelector("ons-toolbar .center").innerHTML = page.data.title;
-            page.querySelector(".sortie").innerHTML = "sortie en" + page.data.sortie;
-            page.querySelector(".duree").innerHTML = "duree de " + page.data.duree + " minutes";
-            page.querySelector(".note").innerHTML = "note de " + page.data.note + " sur 5";
-        }
-        else if (page.id === "carte") {
-            list_markers = new Set();
-            let map = L.map('map',{
-                boxZoom: true,
-            }).locate({setView: true, maxZoom: 12});
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
-            map.addEventListener("moveend", function () {
-                setMarker(map);
-            });
-            setMarker(map);
-        }
-    });
-
-    function createLigneActeur(index) {
-        // create a new list item element in person list
-        // Methode 1 : createElement
-        /*
-           var newItem = document.createElement("ons-list-item");
-        newItem.innerHTML = element.nom;
-        newItem.setAttribute("tappable", "");
-        newItem.setAttribute("onclick", "showPersonne(" + element.id + ")");
-        list.appendChild(newItem);
-        */
-        // Methode 2 : template
-        let element = list_acteurs[index];
-        let newItem = document.querySelector("#ligne_personne").content.cloneNode(true);
-        newItem.querySelector(".list-item__title").innerHTML = `${element.nom} ${element.prenom}`;
-        newItem.querySelector(".naissance").innerHTML = `${
-            new Intl.DateTimeFormat("fr-FR", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit",
-                weekday: "long",
-            }).format(new Date(element.naissance))
-        }`;
-        if (element.deces)
-            newItem.querySelector(".deces").innerHTML = ` - ${
-                new Intl.DateTimeFormat("fr-FR", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                    weekday: "long",
-                }).format(new Date(element.deces))
-            }`;
-        // get image
-        const img = `assets/photos/${element.id}.jpg`;
-        const photo = new Image();
-        photo.src = img;
-        const thumbnail = newItem.querySelector(".list-item__thumbnail");
-        photo.onload = function () {
-            thumbnail.setAttribute("src", img);
-        }
-        photo.onerror = function () {
-            thumbnail.setAttribute("src", "assets/photos/actor_default.jpg");
-        }
-        newItem.firstElementChild.addEventListener("click", function (evt) {
-            const navigator = document.querySelector("#myNavigator");
-            navigator.pushPage("page2.html", {
-                data: {
-                    title: element.nom,
-                    id: element.id
-                },
-            })
-        });
-        return newItem.firstElementChild;
-    }
-
-    async function getPersonnes() {
-        const response = await fetch(`http://localhost:8002/records/Personne`);
-        const data = await response.json();
-        const list = document.querySelector("#acteur ons-lazy-repeat#personne");
-        list_acteurs = data.records;
-        list.delegate = {
-            countItems: () => list_acteurs.length,
-            createItemContent: createLigneActeur
-        }
-    }
-
-    async function getFilms(id) {
-        const response = await fetch(`http://localhost:8002/records/Personne/` + id + `?join=Equipe%2CFilm`);
-        const data = await response.json();
-        const list = document.querySelector("#page2 ons-list#films");
-        for (const equipe of data.Equipe) {
-            // create a new list item element in person list
-            var newItem = document
-                .querySelector("#ligne_film")
-                .content.cloneNode(true);
-            newItem.querySelector(".list-item__title").innerHTML = equipe.film.titre;
-            newItem.querySelector(".role").innerHTML = equipe.role;
-            newItem.querySelector(".alias").innerHTML = equipe.alias = "\"\"" ? "" : `(${equipe.alias})`
-            // get image
-            const img = `assets/films/${equipe.film.id}.jpg`;
-            const photo = new Image();
-            photo.src = img;
-            const thumbnail = newItem.querySelector(".image");
-            photo.onload = function () {
-                thumbnail.setAttribute("src", img);
-            }
-            newItem.firstElementChild.addEventListener("click", function (evt) {
-                const navigator = document.querySelector("#myNavigator");
-                navigator.pushPage("page3.html", {
-                    data: {
-                        <!-- Titre , sortie , duree -->
-                        title: equipe.film.titre,
-                        sortie: equipe.film.sortie,
-                        duree: equipe.film.duree,
-                        note: equipe.film.note,
-                        n_notes: equipe.film.n_notes,
-                        id_film: equipe.film.id,
-                        id: evt.target.id,
-                    },
-                });
-            });
-            list.appendChild(newItem);
-        }
-    }
-    function openMap() {
-        {
-            const navigator = document.querySelector('#myNavigator');
-            navigator.pushPage('carte.html');
-        }
-    }
-
-    async function setMarker(map) {
-        const b = map.getBounds();
-        let bbox = `${b._southWest.lat},${b._southWest.lng},${b._northEast.lat},${b._northEast.lng}`;
-        let r = await fetch("http://localhost:8002/geojson/Cinema?bbox=" + bbox);
-        const data = await r.json();
-        let cinemas = data.features;
-        for (let i = 0; i < cinemas.length; i++) {
-            if (list_markers.has(cinemas[i].id)) continue;
-            let cinema = cinemas[i];
-            L.marker([cinema.geometry.coordinates[0], cinema.geometry.coordinates[1]])
-                .addTo(map)
-                .bindPopup(cinema.properties.nom + "<br>" + cinema.properties.ville + "<br>" + cinema.properties.voie);
-            list_markers.add(cinema.id);
-        }
-    }
-</script>
+<template id="ticket.html">
+    <ons-page id="ticket">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Accueil</ons-back-button>
+            </div>
+            <div class="center">Ticket</div>
+        </ons-toolbar>
+        <div id="reader" width="600px"></div>
+    </ons-page>
+</template>
+<script src="JS.js"></script>
 </body>
 </html>
