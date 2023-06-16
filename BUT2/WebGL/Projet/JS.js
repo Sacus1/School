@@ -94,6 +94,13 @@ function fillScene() {
         obj.children[0].material = new THREE.MeshPhongMaterial({ map: groundTexture });
         scene.add(obj);
     });
+    // SHIP
+    //import the obj file
+    objLoader.load('ship.obj', function (obj) {
+        obj.scale.set(10, 10, 10);
+        obj.position.set(0, 10, 0);
+
+    });
 }
 
 function init() {
