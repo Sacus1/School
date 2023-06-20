@@ -20,6 +20,8 @@
             crossorigin=""></script>
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!--QRCode generation-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -62,11 +64,34 @@
 </template>
 <template id="acteur.html">
     <ons-page id="acteur">
+        <style>
+            ons-toolbar:not(.loupe) .recherche{
+                display: none;
+            }
+            ons-toolbar.loupe .recherche{
+                display: initial;
+            }
+            ons-toolbar:not(.loupe) .center div:not(.recherche){
+                display: initial;
+            }
+            ons-toolbar.loupe .center div:not(.recherche){
+                display: none;
+            }
+        </style>
+
         <ons-toolbar>
             <div class="left">
                 <ons-back-button>Accueil</ons-back-button>
             </div>
-            <div class="center">Acteurs</div>
+            <div class="center">
+                <div class="titre">Acteurs</div>
+                <div class="recherche">
+                    <ons-search-input id="search" placeholder="Entrer les premières lettres" onkeyup="neurosama(this.value)"></ons-search-input>
+                </div>
+            </div>
+            <div class="right" style="margin-inline-end: 0.5em">
+                <ons-icon icon="fa-search" onclick="this.closest('ons-toolbar').classList.toggle('loupe')"></ons-icon>
+            </div>
         </ons-toolbar>
 
         <ons-list>
@@ -111,6 +136,7 @@
             <span class="list-item__subtitle">
                 <span class="naissance">Naissance</span>&nbsp<span class="deces">- Aujourd'hui</span>
             </span>
+            <span class="nbFilm notification">フィルム</span>
         </div>
 
     </ons-list-item>
@@ -121,7 +147,7 @@
             <img class="image" src="" alt="" width="100"/>
         </div>
         <div class="center">
-            <span class="list-item__title">Titre</span>&nbsp;
+            <span class="list-item__title titre" data-annee="">Titre</span>&nbsp;
             <span class="list-item__subtitle">
                 <span class="role"></span>&nbsp;
                 <span class="alias"></span>
@@ -129,6 +155,11 @@
         </div>
 
     </ons-list-item>
+    <style>
+        .titre[data-annee="1986"]{
+            color: red;
+        }
+    </style>
 </template>
 <template id="page3.html">
     <ons-page id="page3">
@@ -183,6 +214,7 @@
             <div class="center">Ticket</div>
         </ons-toolbar>
         <div id="reader" width="600px"></div>
+        <div id="qrcode"></div>
     </ons-page>
 </template>
 <script src="JS.js"></script>
