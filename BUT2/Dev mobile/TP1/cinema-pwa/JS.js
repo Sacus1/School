@@ -1,4 +1,5 @@
 let list_acteurs = [];
+let list_acteurs_origin = [];
 let list_markers = new Set();
 
 navigator.serviceWorker.register("service-worker.js");
@@ -39,7 +40,6 @@ async function addStar(number)  {
     console.log(data)
 
 }
-
 document.addEventListener("init", function (event) {
     const page = event.target;
 
@@ -79,6 +79,16 @@ document.addEventListener("init", function (event) {
         const qrCodeSuccessCallback = (decodedText, decodedResult) => {
             /* handle success */
             console.log(`QR Code detected: ${decodedText}`);
+            const qrcode = document.querySelector("#qrcode");
+            // use qrious to generate a QR code
+            const qr = new QRious({
+                element: qrcode,
+                value: decodedText,
+                size: 250
+            });
+            // put the QR code in the qrcode div
+            qrcode.innerHTML = "";
+            qrcode.appendChild(qr.canvas);
         };
         const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
@@ -86,7 +96,6 @@ document.addEventListener("init", function (event) {
         html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
     }
 });
-
 function createLigneActeur(index) {
     // create a new list item element in person list
     // Methode 1 : createElement
@@ -118,6 +127,7 @@ function createLigneActeur(index) {
                 weekday: "long",
             }).format(new Date(element.deces))
         }`;
+    newItem.querySelector(".nbFilm").innerHTML = element.nbFilm;
     // get image
     const img = `assets/photos/${element.id}.jpg`;
     const photo = new Image();
@@ -141,15 +151,49 @@ function createLigneActeur(index) {
     return newItem.firstElementChild;
 }
 
+function sortByNationality() {
+    const list = document.querySelector("#acteur ons-lazy-repeat#personne");
+    // sort by country
+    list_acteurs.sort((a, b) => {
+        if (a.nationalite < b.nationalite) return -1;
+        if (a.nationalite > b.nationalite) return 1;
+        return 0;
+    });
+
+    list.refresh();
+}
+
+function showDeadOnly() {
+    const list = document.querySelector("#acteur ons-lazy-repeat#personne");
+    // remove all actors with deces to None
+    list_acteurs = list_acteurs_origin.filter((a) => a.deces !== null);
+    list.refresh();
+}
+function neurosama(value) {
+    // filter the list of actors with the value of the search bar
+    const list = document.querySelector("#acteur ons-lazy-repeat#personne");
+    list_acteurs = list_acteurs_origin.filter((a) => a.artiste.toLowerCase().includes(value.toLowerCase()) );
+    list.refresh();
+}
+function limitTo(nb) {
+    const list = document.querySelector("#acteur ons-lazy-repeat#personne");
+    // remove all actors with deces to None
+    list_acteurs = list_acteurs.slice(0, nb);
+    list.refresh();
+}
 async function getPersonnes() {
-    const response = await fetch(`http://localhost:8002/records/Personne`);
+    const response = await fetch(`http://localhost:8002/records/Acteur`);
     const data = await response.json();
     const list = document.querySelector("#acteur ons-lazy-repeat#personne");
     list_acteurs = data.records;
+    list_acteurs_origin = data.records;
     list.delegate = {
         countItems: () => list_acteurs.length,
         createItemContent: createLigneActeur
     }
+    sortByNationality();
+    showDeadOnly();
+    limitTo(30);
 }
 
 async function getFilms(id) {
@@ -164,6 +208,7 @@ async function getFilms(id) {
         newItem.querySelector(".list-item__title").innerHTML = equipe.film.titre;
         newItem.querySelector(".role").innerHTML = equipe.role;
         newItem.querySelector(".alias").innerHTML = equipe.alias = "\"\"" ? "" : `(${equipe.alias})`
+        newItem.querySelector(".list-item__title").setAttribute("data-annee", equipe.film.annee);
         // get image
         const img = `assets/films/${equipe.film.id}.jpg`;
         const photo = new Image();
