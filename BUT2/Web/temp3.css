@@ -1,0 +1,233 @@
+.graph-frame-desktop,
+.graph-frame-desktop * {
+  box-sizing: border-box;
+}
+.graph-frame-desktop {
+  background: #2c2c2c;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  overflow: hidden;
+}
+.rectangle-8 {
+  background: #3d3d3d;
+  width: 365px;
+  height: 1015px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.logo {
+  width: 230px;
+  height: 220px;
+  position: absolute;
+  left: 293px;
+  top: -22px;
+  transform-origin: 0 0;
+  transform: rotate(90deg) scale(1, 1);
+}
+.bouton-nav-group {
+  position: absolute;
+  inset: 0;
+}
+.bouton-menu {
+  width: 365px;
+  height: 96px;
+  position: static;
+}
+.rectangle-9 {
+  background: rgba(255, 255, 255, 0.04);
+  width: 365px;
+  height: 96px;
+  position: absolute;
+  left: 0px;
+  top: 185px;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.icon-bouton-menu {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 33px;
+  top: 213px;
+}
+.home {
+  color: #ffffff;
+  text-align: left;
+  font: 700 24px "Inter", sans-serif;
+  position: absolute;
+  left: 95px;
+  top: 216px;
+  width: 220px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.bouton-histo {
+  width: 365px;
+  height: 96px;
+  position: static;
+}
+.rectangle-10 {
+  background: rgba(255, 255, 255, 0.04);
+  width: 365px;
+  height: 96px;
+  position: absolute;
+  left: 0px;
+  top: 281px;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.icon-bouton-historique {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  left: 31px;
+  top: 306px;
+}
+.historique {
+  color: #ffffff;
+  text-align: left;
+  font: 700 24px "Inter", sans-serif;
+  position: absolute;
+  left: 95px;
+  top: 312px;
+  width: 220px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.bouton-graph {
+  width: 365px;
+  height: 96px;
+  position: static;
+}
+.rectangle-11 {
+  background: rgba(255, 255, 255, 0.04);
+  width: 365px;
+  height: 96px;
+  position: absolute;
+  left: 0px;
+  top: 377px;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.icon-bouton-statistique {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 36px;
+  top: 407px;
+}
+.graphics {
+  color: #ffffff;
+  text-align: left;
+  font: 700 24px "Inter", sans-serif;
+  position: absolute;
+  left: 95px;
+  top: 408px;
+  width: 220px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.group-2 {
+  position: absolute;
+  inset: 0;
+}
+.fonts-graphs-group {
+  width: 352px;
+  height: 356px;
+  position: static;
+}
+.font-graph-4 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  left: 720px;
+  top: 227px;
+}
+.font-graph-3 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  left: 902px;
+  top: 227px;
+}
+.font-graph-2 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  left: 720px;
+  top: 413px;
+}
+.font-graph-1 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  left: 902px;
+  top: 413px;
+}
+.affichage-image-name-groupe {
+  width: 352px;
+  height: 50px;
+  position: static;
+}
+.rectangle-2 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 352px;
+  height: 50px;
+  position: absolute;
+  left: 720px;
+  top: 599px;
+}
+.statistical {
+  color: rgba(61, 61, 61, 0.4);
+  text-align: center;
+  font: 700 24px "Inter", sans-serif;
+  position: absolute;
+  left: 786px;
+  top: 607px;
+  width: 220px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.affichage-r-sult-ia-groupe {
+  width: 352px;
+  height: 50px;
+  position: static;
+}
+.rectangle-3 {
+  background: #d9d9d9;
+  border-radius: 15px;
+  width: 352px;
+  height: 50px;
+  position: absolute;
+  left: 720px;
+  top: 669px;
+}
+.must-ai-result {
+  color: rgba(61, 61, 61, 0.4);
+  text-align: center;
+  font: 700 24px "Inter", sans-serif;
+  position: absolute;
+  left: 786px;
+  top: 677px;
+  width: 220px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

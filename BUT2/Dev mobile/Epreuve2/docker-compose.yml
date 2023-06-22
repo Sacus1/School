@@ -1,0 +1,46 @@
+volumes:
+  mariadb:
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./mariadb/:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - 3306:3306
+  adminer:
+    image: myadminer
+    container_name: adminer
+    build: ./adminer
+    ports:
+      - 8001:80
+  crude-api:
+    image: crude-api
+    container_name: crude-api
+    build: ./crude-api
+    ports:
+      - 8002:80
+    depends_on:
+      - mariadb
+    environment:
+      PHP_CRUD_API_DRIVER: mysql
+      PHP_CRUD_API_ADDRESS: mariadb
+      PHP_CRUD_API_PORT: 3306
+      PHP_CRUD_API_DATABASE: ${MARIADB_DATABASE}
+      PHP_CRUD_API_USERNAME: ${MARIADB_USER}
+      PHP_CRUD_API_PASSWORD: ${MARIADB_PASSWORD}
+      PHP_CRUD_API_DEBUG: 1
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger
+    ports:
+      - 8003:8080
+    environment:
+      API_URL: http://localhost:8002/openapi

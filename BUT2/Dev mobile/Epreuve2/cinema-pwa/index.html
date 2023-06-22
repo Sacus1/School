@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="manifest" href="./manifest.json"/>
+    <meta name="theme-color" content="#acacac"/>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css"/>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!--QRCode generation-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <!--import ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>
+<template id="main.html">
+    <ons-page id="main">
+        <style>
+            .icon{
+                background: #0B6B0B;
+                border-radius: 100%;
+                width: 20vw;
+                height: 20vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+            }
+            #qr{
+                background: #0B6B0B;
+                border-radius: 100%;
+                width: 30vw;
+                height: 30vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+            }
+        </style>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 35" >
+            <!--square to half the page-->
+            <path fill="#0B6B0B" d="M0 0h32v35H0z"/>
+            <text x="50%" y="5" fill="#ffffff" font-size="5" text-anchor="middle" id="name">Jean charles</text>
+            <!--drapeau-->
+            <image height="2" width="2" x="47%" y="7" href="assets/flags/fr.png"/>
+            <!-- profile picture cropped within a circle-->
+            <defs>
+                <clipPath id="circleView">
+                    <circle cx="50%" cy="20" r="7.3283" fill="#FFFFFF" />
+                </clipPath>
+            </defs>
+            <image
+                    x="25%"
+                    y="33%"
+                    width="16"
+                    height="16"
+                    href="assets/profils/1.png"
+                    clip-path="url(#circleView)"
+            />
+            <!-- Genre + age-->
+            <text x="50%" y="95%" fill="#ffffff" font-size="3" text-anchor="middle" id="genre">Homme 60-65</text>
+        </svg>
+        <div style="display: flex;justify-content:space-around;">
+            <div>
+                <!--qr code-->
+                <ons-icon onclick="function scanQRCode() {
+                   document.querySelector('#myNavigator').pushPage('qrcode.html');
+
+                }
+                scanQRCode()" icon="fa-qrcode" id="qr" size="20vw"></ons-icon>
+            </div>
+        </div>
+        <br>
+        <div style="display: flex;justify-content:space-around;">
+            <div class="icon">
+                <!--map-->
+                <ons-icon onclick="showMap()" icon="fa-map" size="10vw"></ons-icon>
+            </div>
+            <div class="icon">
+                <!--running-->
+                <ons-icon onclick="function showRunning() {
+                    document.querySelector('#myNavigator').pushPage('participant.html');
+                }
+                showRunning()" icon="fa-running" size="10vw"></ons-icon>
+            </div>
+            <div class="icon">
+                <!--chart-area-->
+                <ons-icon onclick="showChart()" icon="fa-chart-area" size="10vw"></ons-icon>
+            </div>
+        </div>
+    </ons-page>
+</template>
+<template id="carte.html">
+    <ons-page id="carte">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Accueil</ons-back-button>
+            </div>
+            <div class="center">Accueil</div>
+        </ons-toolbar>
+        <div id="map" style="width: 100%; height: 100%; ">
+
+        </div>
+    </ons-page>
+</template>
+<template id="participant.html">
+    <ons-page id="participant">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Accueil</ons-back-button>
+            </div>
+            <div class="center">
+                <div class="titre">Participant</div>
+            </div>
+        </ons-toolbar>
+
+        <ons-list>
+            <ons-lazy-repeat id="personne"></ons-lazy-repeat>
+        </ons-list>
+    </ons-page>
+</template>
+<template id="ligne_participant">
+    <ons-list-item modifier="chevrons" tappable>
+        <div class="left">
+            <img class="list-item__thumbnail" src="assets/profils/1.png" alt=""/>
+        </div>
+        <div class="center">
+            <span class="list-item__title">Nom</span>&nbsp;
+            <span class="list-item__subtitle">
+                Temps
+            </span>
+        </div>
+
+    </ons-list-item>
+</template>
+<template id="qrcode.html">
+    <ons-page id="qrcode">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Accueil</ons-back-button>
+            </div>
+            <div class="center">QRCode</div>
+        </ons-toolbar>
+        <div id="reader" width="600px"></div>
+    </ons-page>
+</template>
+<script src="JS.js"></script>
+</body>
+</html>
