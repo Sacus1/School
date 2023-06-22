@@ -119,7 +119,6 @@ $('#send').click(function() {
 
 function guess(id, answer) {
     // 1 = AI won, 0 = Stalemate, -1 = lose
-    console.log("appuyer");
     // send file to server
     let formData = new FormData();
     formData.append("answer", answer);
