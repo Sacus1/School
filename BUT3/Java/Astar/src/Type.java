@@ -1,0 +1,6 @@
+public enum Type {
+	WALL,
+	DEPART,
+	END,
+	AVAILABLE, EMPTY, EXPLORED, PATH , CURRENT
+}
