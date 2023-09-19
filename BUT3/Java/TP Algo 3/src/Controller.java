@@ -23,12 +23,10 @@ public class Controller  {
 			model.findPath();
 		});
 		algorithmSelector = view.algorithmSelector;
-		algorithmSelector.addItem("Breadth first");
-		algorithmSelector.addItem("Depth first");
-		algorithmSelector.addItem("Greedy best first");
-		algorithmSelector.addItem("Dijkstra");
-		algorithmSelector.addItem("A*");
-		algorithmSelector.addItem("IDA*");
+		String[] algorithms = {"Breadth first", "Depth first", "Greedy best first", "Dijkstra", "A*", "IDA*"};
+		for (String algorithm : algorithms)
+			algorithmSelector.addItem(algorithm);
+
 		// add listeners for algorithm selector
 		algorithmSelector.addActionListener(e -> algorithmSelector());
 		// listen for mouse clicks
@@ -48,24 +46,16 @@ public class Controller  {
 						// left click
 						switch (selectedType) {
 							case 0 -> {
-								if (model.grid[x][y].type == Type.DEPART) model.start = null;
-								if (model.grid[x][y].type == Type.END) model.end = null;
-								model.grid[x][y].type = Type.WALL;
+								selectWall(x,y);
 							}
 							case 1 -> {
-								if (model.start != null) model.start.type = Type.EMPTY;
-								model.start = model.grid[x][y];
-								model.start.type = Type.DEPART;
+								selectStart(x,y);
 							}
 							case 2 -> {
-								if (model.end != null) model.end.type = Type.EMPTY;
-								model.end = model.grid[x][y];
-								model.end.type = Type.END;
+								selectEnd(x,y);
 							}
 							case 3 -> {
-								if (model.grid[x][y].type == Type.DEPART) model.start = null;
-								if (model.grid[x][y].type == Type.END) model.end = null;
-								model.grid[x][y].type = Type.EMPTY;
+								selectEmpty(x,y);
 							}
 							default -> throw new IllegalStateException("Unexpected value: " + selectedType);
 						}
@@ -73,6 +63,30 @@ public class Controller  {
 					model.update();
 				}
 			}
+
+	private void selectWall(int x, int y){
+		if (model.grid[x][y].type == Type.DEPART) model.start = null;
+		if (model.grid[x][y].type == Type.END) model.end = null;
+		model.grid[x][y].type = Type.WALL;
+	}
+
+	private void selectStart(int x, int y){
+		if (model.start != null) model.start.type = Type.EMPTY;
+		model.start = model.grid[x][y];
+		model.start.type = Type.DEPART;
+	}
+
+	private void selectEnd(int x, int y){
+		if (model.end != null) model.end.type = Type.EMPTY;
+		model.end = model.grid[x][y];
+		model.end.type = Type.END;
+	}
+
+	private void selectEmpty(int x, int y){
+		if (model.grid[x][y].type == Type.DEPART) model.start = null;
+		if (model.grid[x][y].type == Type.END) model.end = null;
+		model.grid[x][y].type = Type.EMPTY;
+	}
 		});
 		algorithmSelector.setSelectedIndex(0);
 		// detect if user changes wait time
@@ -90,14 +104,7 @@ public class Controller  {
 			System.err.println("Already running");
 			return;
 		}
-		switch (algorithmSelector.getSelectedIndex()) {
-			case 0 -> model.algorithm = new BreadthFirst();
-			case 1 -> model.algorithm = new DepthFirst();
-			case 2 -> model.algorithm = new GreedyBestFirst();
-			case 3 -> model.algorithm = new Dijsktra();
-			case 4 -> model.algorithm = new AStar();
-			case 5 -> model.algorithm = new IDAStar();
-			default -> throw new IllegalStateException("Unexpected value: " + algorithmSelector.getSelectedIndex());
-		}
+		Algorithm[] algorithms = {new BreadthFirst, new DepthFirst(), new GreedyBestFirst(), new Dijsktra(), new AStar(), new IDAStar()};
+		model.algorithm = algorithms[algorithmSelector.getSelectedIndex()];
 	}
 }
