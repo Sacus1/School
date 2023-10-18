@@ -34,10 +34,6 @@ public class Vertex{
 	void setGCosts(Vertex current) {
 		gCost = calculateGCosts(current);
 	}
-
-	void setGCosts(int gCost) {
-		this.gCost = gCost;
-	}
 	int setHCosts(Vertex destination) {
 		return hCost = (Math.abs(destination.x - x) + Math.abs(destination.y - y)) * 15;
 	}
@@ -47,7 +43,7 @@ public class Vertex{
 	}
 
 	public boolean isWalkable() {
-		return !(type==Type.WALL);
+		return type!=Type.WALL;
 	}
 
 	public int getGCost() {
@@ -60,14 +56,6 @@ public class Vertex{
 
 	public void setPrevious(Vertex previous) {
 		this.previous = previous;
-	}
-
-	int getId() {
-		return x * Model.HEIGHT + y;
-	}
-
-	int getHCost() {
-		return hCost;
 	}
 
 }

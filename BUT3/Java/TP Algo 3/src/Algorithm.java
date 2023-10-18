@@ -1,6 +1,7 @@
 public interface Algorithm {
+	Model model = Model.getInstance();
 	void findPath(Vertex start, Vertex end) throws NoPathFoundException;
-	default void drawVertex(Vertex vertex, Model model) {
+	default void drawVertex(Vertex vertex) {
 		if (vertex.type != Type.DEPART && vertex.type != Type.END)
 			vertex.type = Type.CURRENT;
 		try {

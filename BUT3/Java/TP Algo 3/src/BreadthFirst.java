@@ -1,20 +1,11 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class BreadthFirst implements Algorithm {
 
-	Model model;
-	private ArrayList<Vertex> frontier;
-	private ArrayList<Vertex> reached;
-
-	public BreadthFirst() {
-		this.model = Model.getInstance();
-	}
-
 
 	public void findPath(Vertex source, Vertex destination) throws NoPathFoundException {
+  ArrayList<Vertex> frontier;
+  ArrayList<Vertex> reached;
 		frontier = new ArrayList<>();
 		reached = new ArrayList<>();
 		frontier.add(source);
@@ -23,7 +14,7 @@ public class BreadthFirst implements Algorithm {
 				throw new NoPathFoundException();
 			}
 			Vertex current = frontier.remove(0);
-			drawVertex(current, model);
+			drawVertex(current);
 			for (Vertex neighbor : model.getAdjacent(current,reached)) {
 				if (!reached.contains(neighbor))
 				{

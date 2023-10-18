@@ -1,8 +1,4 @@
 public class IDAStar implements Algorithm {
-	Model model;
-	public IDAStar() {
-		this.model = Model.getInstance();
-	}
 
 	public void findPath(Vertex start, Vertex goal) throws NoPathFoundException {
 		double threshold = start.setHCosts(goal); // set threshold to heuristic of start

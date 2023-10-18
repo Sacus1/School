@@ -12,10 +12,9 @@ public class Model extends Observable {
 	 * Size of a square in pixels
 	 */
 	public static final int SCALE = 64;
-	public Vertex[][] grid = new Vertex[WIDTH][HEIGHT];
+	public final Vertex[][] grid = new Vertex[WIDTH][HEIGHT];
 
-	public static Model instance;
-	private Controller controller;
+	public static  Model instance;
 
 	public boolean isRunning = false;
 	int waitTime = 1000;
@@ -52,45 +51,30 @@ public class Model extends Observable {
 		return neighbors;
 	}
 
-	private void addAdjacent(int i,int j,ArrayList<Vertex> closed, List<Vertex> neighbors) {
-		if (closed !=null) {
-			if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j].isWalkable() && !closed.contains(grid[i][j])) {
-				neighbors.add(grid[i][j]);
-				if (grid[i][j].type != Type.END && grid[i][j].type != Type.DEPART && grid[i][j].type != Type.WALL && grid[i][j].type != Type.EXPLORED) {
-					grid[i][j].type = Type.AVAILABLE;
-				}
-				update();
-			}
+	private void addAdjacent(int i, int j, ArrayList<Vertex> closed, List<Vertex> neighbors) {
+		if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j].isWalkable() && (closed == null || !closed.contains(grid[i][j]))) {
+			neighbors.add(grid[i][j]);
+		if (grid[i][j].type != Type.END && grid[i][j].type != Type.DEPART && grid[i][j].type != Type.WALL && grid[i][j].type != Type.EXPLORED) {
+			grid[i][j].type = Type.AVAILABLE;
 		}
-		else {
-			if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j].isWalkable()) {
-				neighbors.add(grid[i][j]);
-				if (grid[i][j].type != Type.END && grid[i][j].type != Type.DEPART && grid[i][j].type != Type.WALL && grid[i][j].type != Type.EXPLORED) {
-					grid[i][j].type = Type.AVAILABLE;
-				}
-				update();
-			}
+		update();
 		}
-	}
-
-	void setController(Controller controller) {
-		this.controller = controller;
 	}
 
 	public void findPath(){
 		// check if isRunning
 		if (isRunning) {
-			System.err.println("Already running");
+			Logger.error("Already running");
 			return;
 		}
 		// check if algorithm is set
 		if (algorithm == null) {
-			System.err.println("Algorithm not set");
+			Logger.error("Algorithm not set");
 			return;
 		}
 		// check if start and end are set
 		if (start == null || end == null) {
-			System.err.println("Start or end not set");
+			Logger.error("Start or end not set");
 			return;
 		}
 		// remove path from grid
@@ -120,7 +104,7 @@ public class Model extends Observable {
 			update();
 			isRunning = false;
 		} catch (NoPathFoundException ex) {
-			System.err.println("Path not found");
+			Logger.error("Path not found");
 		}
 
 	}

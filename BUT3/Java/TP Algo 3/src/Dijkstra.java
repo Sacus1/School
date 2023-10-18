@@ -1,15 +1,9 @@
 import java.util.ArrayList;
 
-public class Dijsktra implements Algorithm {
-		Model model;
+public class Dijkstra implements Algorithm {
 		private ArrayList<Vertex> open;
-		private ArrayList<Vertex> closed;
-
-		public Dijsktra() {
-			this.model = Model.getInstance();
-		}
-
 		public void findPath(Vertex source, Vertex destination) throws NoPathFoundException {
+   ArrayList<Vertex> closed;
 			open = new ArrayList<>();
 			closed = new ArrayList<>();
 			open.add(source);
@@ -46,7 +40,7 @@ public class Dijsktra implements Algorithm {
 					best = node;
 				}
 			}
-			drawVertex(best, model);
+			drawVertex(best);
 			return best;
 		}
 	}
