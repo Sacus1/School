@@ -1,15 +1,8 @@
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class DepthFirst implements Algorithm {
-
-	Model model;
 	boolean finished;
 	ArrayList<Vertex> visited;
-	public DepthFirst() {
-		this.model = Model.getInstance();
-	}
-
 
 	public void findPath(Vertex source, Vertex destination) throws NoPathFoundException {
 		visited = new ArrayList<>();

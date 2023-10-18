@@ -9,12 +9,12 @@ public class View extends JPanel implements Observer {
 	/**
 	 * 0: Mur, 1: Départ, 2: Arrivée, 3: Vide
 	 */
-	public JButton[] caseSelector = new JButton[4];
+	public final JButton[] caseSelector = new JButton[4];
 	/** Start button */
-	public JButton startButton = new JButton("Start");
+	public final JButton startButton = new JButton("Start");
 	/** Algorithm selector */
-	public JComboBox<String> algorithmSelector = new JComboBox<>();
-	JTextField waitTime;
+	public final JComboBox<String> algorithmSelector = new JComboBox<>();
+	final JTextField waitTime;
 
 	public View() {
 		frame = new JFrame("Pathfinding");
@@ -94,8 +94,7 @@ public class View extends JPanel implements Observer {
 			int x2 = grid[i][j].getPrevious().x*Model.SCALE + Model.SCALE/2;
 			int y2 = grid[i][j].getPrevious().y*Model.SCALE + Model.SCALE/2;
 		  int direction = 0; // 0: right, 1: down, 2: left, 3: up
-			if (x1 < x2) direction = 0;
-			else if (y1 < y2) direction = 1;
+			if (y1 < y2) direction = 1;
 			else if (x1 > x2) direction = 2;
 			else if (y1 > y2) direction = 3;
 			// draw arrow in order to stay in the same square as the current node

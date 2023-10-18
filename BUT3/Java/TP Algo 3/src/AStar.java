@@ -1,16 +1,11 @@
 import java.util.ArrayList;
 
 public class AStar implements Algorithm {
-	Model model;
 	private ArrayList<Vertex> open;
-	private ArrayList<Vertex> closed;
-
-	public AStar() {
-		this.model = Model.getInstance();
-	}
 
 	@Override
 	public void findPath(Vertex source, Vertex destination) throws NoPathFoundException {
+  ArrayList<Vertex> closed;
 		open = new ArrayList<>();
 		closed = new ArrayList<>();
 		open.add(source);
@@ -48,7 +43,7 @@ public class AStar implements Algorithm {
 				best = node;
 			}
 		}
-		drawVertex(best, model);
+		drawVertex(best);
 		return best;
 	}
 }
