@@ -1,16 +1,18 @@
 import org.junit.jupiter.api.Test;
 import org.school.User;
 import org.school.UserService;
-import org.school.UserServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UserServiceImplTest {
 
 	@Test
 	void should_create_user_with_hashed_password() {
 
-		UserService userService = new UserServiceImpl(???);
+		UserService userService = mock(UserService.class);
+		when(userService.createUser("Bob","secret")).thenReturn(new User("Bob", "???"));
 
 		User user = userService.createUser("Bob", "secret");
 

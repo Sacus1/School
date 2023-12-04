@@ -1,6 +1,4 @@
-import org.school.HashProvider;
-import org.school.User;
-import org.school.UserService;
+package org.school;
 
 public class UserServiceImpl implements UserService {
 
