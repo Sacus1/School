@@ -1,2 +1,1 @@
-public interface Douche {
-}
+public interface Douche {}

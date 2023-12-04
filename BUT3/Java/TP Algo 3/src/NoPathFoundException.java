@@ -1,3 +1,1 @@
-public class NoPathFoundException extends Exception {
-
-}
+public class NoPathFoundException extends Exception {}

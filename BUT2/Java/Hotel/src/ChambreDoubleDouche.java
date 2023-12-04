@@ -1,5 +1,5 @@
 public class ChambreDoubleDouche extends ChambreDouble implements Douche {
-    public ChambreDoubleDouche() {
-        super();
-    }
+  public ChambreDoubleDouche() {
+    super();
+  }
 }

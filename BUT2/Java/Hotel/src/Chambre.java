@@ -1,24 +1,32 @@
 public abstract class Chambre implements java.io.Serializable {
-	private int no;
+  private int no;
   public int nbLits;
-	public Chambre(int nbLits) {
-		this.nbLits = nbLits;
-		no = 0;
-	}
 
-	public int getNo() {
-		return no;
-	}
+  public Chambre(int nbLits) {
+    this.nbLits = nbLits;
+    no = 0;
+  }
 
-	public void setNo(int no) {
-		this.no = no;
-	}
+  public int getNo() {
+    return no;
+  }
 
-	abstract public String typeChambre();
+  public void setNo(int no) {
+    this.no = no;
+  }
 
-	@Override
-	public String toString() {
-		boolean hasDouche = this instanceof Douche;
-		return "Chambre " + no + " " + typeChambre() + " avec " + nbLits + " lits" + (hasDouche ? " et douche" : "");
-	}
+  public abstract String typeChambre();
+
+  @Override
+  public String toString() {
+    boolean hasDouche = this instanceof Douche;
+    return "Chambre "
+        + no
+        + " "
+        + typeChambre()
+        + " avec "
+        + nbLits
+        + " lits"
+        + (hasDouche ? " et douche" : "");
+  }
 }

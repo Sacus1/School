@@ -1,5 +1,5 @@
 public class AppartementDouche extends Appartement implements Douche {
-    public AppartementDouche() {
-        super();
-    }
+  public AppartementDouche() {
+    super();
+  }
 }
