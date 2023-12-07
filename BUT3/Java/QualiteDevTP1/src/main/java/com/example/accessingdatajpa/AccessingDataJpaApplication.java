@@ -12,12 +12,12 @@ public class AccessingDataJpaApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(AccessingDataJpaApplication.class);
 	}
 
 	@Bean
-	public CommandLineRunner demo(CustomerRepository repository) {
+	public CommandLineRunner demo(final CustomerRepository repository) {
 		return (args) -> {
 			// save a few customers
 			repository.save(new Customer("Jack", "Bauer"));
@@ -33,7 +33,7 @@ public class AccessingDataJpaApplication {
 			log.info("");
 
 			// fetch an individual customer by ID
-			Customer customer = repository.findById(1L);
+			final Customer customer = repository.findById(1L);
 			log.info("Customer found with findById(1L):");
 			log.info("--------------------------------");
 			log.info(customer.toString());
@@ -47,4 +47,20 @@ public class AccessingDataJpaApplication {
 		};
 	}
 
+	private void insertFourEmployees(final EmployeeRepository repository) {
+		repository.save(new Employee("Dalia", "Abo Sheasha"));
+		repository.save(new Employee("Trisha", "Gee"));
+		repository.save(new Employee("Helen", "Scott"));
+		repository.save(new Employee("Mala", "Gupta"));
+	}
+
+	@Bean
+	public CommandLineRunner run(final EmployeeRepository repository) {
+		return (args) -> {
+			insertFourEmployees(repository);
+			log.info("Employees found with findAll():");
+			log.info("-------------------------------");
+			repository.findAll().forEach(employee -> log.info(employee.toString()));
+		};
+	}
 }

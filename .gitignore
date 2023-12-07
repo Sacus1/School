@@ -12,5 +12,6 @@ BUT2/Dev mobile/TP1/.env
 BUT3/Python/ProgrammationAvanceIA/TP3/Asterix/*
 BUT3/Python/ProgrammationAvanceIA/TP3/data/*
 BUT3/Python/ProgrammationAvanceIA/TP3/Obelix/*
-BUT3/Python/ProgrammationAvanceIA/TP3/Verification/*BUT3/Python/ProgrammationAvanceIA/TP2/X.csv
-BUT3/Python/ProgrammationAvanceIA/TP3/Asterix.mp4
+BUT3/Python/ProgrammationAvanceIA/TP3/Verification/*
+*.csv
+*.mp4
