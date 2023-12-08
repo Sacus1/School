@@ -27,30 +27,30 @@
 // ATTENTION : IL FAUT COMMENCER PAR COMPLETER LA CLASSE MATRICE
 //
 
-
-
 /** Third training session on geometric transforms. */
-public class Exo3 extends RopewayScene
-{
+public class Exo3 extends RopewayScene {
   /** Roll motion amplitude (degrees). */
   private final float MAX_ROLL = 40.0f;
+
   /** Number of roll cycles. */
   private final int NB_CYCLES = 2;
 
   /** Ropeway run length. */
   private float distance = 0.0f;
+
   /** Cosine of roll angle. */
   private float cosTheta = 1.0f;
+
   /** Sine of roll angle. */
   private float sinTheta = 0.0f;
 
-
-  /** Returns the next animation step pose.
-    * @param pose Already allocated vector to fill in with new pose values.
-    */
-  public boolean nextStep (float[] pose)
-  {
-    if ((distance* cosTheta)+ (distance* sinTheta) + ropewaySpeed() > (cableLength() ) ) {
+  /**
+   * Returns the next animation step pose.
+   *
+   * @param pose Already allocated vector to fill in with new pose values.
+   */
+  public boolean nextStep(float[] pose) {
+    if ((distance * cosTheta) + (distance * sinTheta) + ropewaySpeed() > (cableLength())) {
       distance = 0;
       return false;
     }
@@ -60,26 +60,27 @@ public class Exo3 extends RopewayScene
     return (true);
   }
 
-
-  /** Constructs the 3D scene used for the present exercice.
-    * Prepares temporary storage for cabin motion computation.
-    * @param p1 Type of the loaded scene.
-    * @param p2 Parameters of the loaded scene.
-    */
-  private Exo3 (int p1, String[] p2)
-  {
-    super (p1, p2);
+  /**
+   * Constructs the 3D scene used for the present exercice. Prepares temporary storage for cabin
+   * motion computation.
+   *
+   * @param p1 Type of the loaded scene.
+   * @param p2 Parameters of the loaded scene.
+   */
+  private Exo3(int p1, String[] p2) {
+    super(p1, p2);
 
     // Preparation du mouvement
-    cosTheta = (cableInter()[1] - cableStart()[1])*2 / cableLength();
-    sinTheta = (cableInter()[0] - cableStart()[0])*2 / cableLength();
+    cosTheta = (cableInter()[1] - cableStart()[1]) * 2 / cableLength();
+    sinTheta = (cableInter()[0] - cableStart()[0]) * 2 / cableLength();
   }
 
-  /** Runs a cabin animation.
-    * @param args Run arguments.
-    */
-  public static void main (String[] args)
-  {
-    new ExoFrame (new Exo3 (1, args), 3);
+  /**
+   * Runs a cabin animation.
+   *
+   * @param args Run arguments.
+   */
+  public static void main(String[] args) {
+    new ExoFrame(new Exo3(1, args), 3);
   }
 }
