@@ -15,3 +15,8 @@ BUT3/Python/ProgrammationAvanceIA/TP3/Obelix/*
 BUT3/Python/ProgrammationAvanceIA/TP3/Verification/*
 *.csv
 *.mp4
+**/doc/
+**/out/
+*.zip
+*.odt
+*.pdf

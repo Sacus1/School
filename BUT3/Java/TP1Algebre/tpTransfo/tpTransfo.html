@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Even TP Transfo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#3FBFAF" text="#4F2F1F">
+    <h2>IN4 - Canevas du TP sur les transformations affines</h2>
+
+    <p> Objectif : apprendre &agrave; contr&ocirc;ler des mouvements rigides
+        avec les outils d'alg&egrave;bre vectorielle. </p>
+    <p> Le compte rendu devra comporter la mise en forme alg&eacute;brique
+        du probl&egrave;me. </p>
+    <p> En cas de besoin, une <a href="./doc/index.html"> documentation
+        des classes</a> est fournie. </p>
+    <p> En fin de TP vous devrez remettre une archive <em>zip</em> ou
+        <em>tgz</em> (aucun autre format n'est accept&eacute;) comportant
+        le compte-rendu (formats PDF) et les fichiers Java que vous aurez
+        r&eacute;alis&eacute;s (<em>Exo1.java</em> et <em>Exo2.java</em>).
+        Les codes fournis devront pouvoir &ecirc;tre compil&eacute;s sans
+        erreur. </p>
+
+    <h3>Exercice 1 : Simple translation vectorielle</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo1.java</em>.
+        La sc&egrave;ne propos&eacute;e comporte un c&acirc;ble et une cabine
+        de t&eacute;l&eacute;ph&eacute;rique. Le but de l'exercice est
+        de programmer le d&eacute;placement de la cabine de sorte que le
+        sommet de la perche suive le c&acirc;ble de sa position de d&eacute;part
+        &agrave; sa position d'arriv&eacute;e. </p>
+    <dl>
+      <dt> La mise en forme alg&eacute;brique du probl&egrave;me est la
+           composition de deux translations; </dt>
+      <dd> - la premi&egrave;re am&egrave;ne la cabine &agrave;
+           l'extr&eacute;mit&eacute; de d&eacute;part du c&acirc;ble; </dd>
+      <dd> - la seconde contr&ocirc;le l'avance de la cabine sur le c&acirc;ble
+           (la distance de d&eacute;placement est incr&eacute;ment&eacute;e
+           &agrave; chaque cycle). </dd>
+    </dl>
+    <dl>
+      <dt> Le rep&egrave;re de travail de la sc&egrave;ne est d&eacute;fini de
+           la fa&ccedil;on suivante : </dt>
+      <dd> - la verticale de la sc&egrave;ne correspond &agrave; l'axe Z; </dd>
+      <dd> - l'axe X est orient&eacute; vers l'avant
+           et l'axe Y vers la droite. </dd>
+      <dt> Le sol correspond au plan z=0. </dt>
+      <dt> Le rep&egrave;re de la cabine a pour origine le sommet de la perche.
+           L'avant de la cabine est dans la direction OX. </dt>
+    </dl>
+    <p> L'implantation de la solution consiste &agrave; compl&eacute;ter la
+        m&eacute;thode <em>nextStep</em> appel&eacute;e en t&acirc;che de
+        fond (&agrave; chaque cycle) par l'application. Cette m&eacute;thode
+        doit affecter au vecteur <em>pose</em> les termes (ligne par ligne)
+        de la matrice homog&egrave;ne 4x4 (convention vecteur colonne comme
+        dans le cours) correspondant &agrave; la translation attendue.
+        Le vecteur <em>pose</em> transmet les termes ligne par ligne de la
+        matrice. Tant que la m&eacute;thode <em>nextStep</em> retourne
+        <em>VRAI</em>, le mouvement continue automatiquement. </p>
+    <dl>
+      <dt> La g&eacute;om&eacute;trie de la sc&egrave;ne est fournie par des
+           m&eacute;thodes d'instance de la classe <em>RopewayScene</em> : </dt>
+      <dd> - <em>float cableHeight ()</em> : hauteur du c&acirc;ble; </dd>
+      <dd> - <em>float[] cableStart ()</em> : position 2D de
+           l'extr&eacute;mit&eacute; de d&eacute;part du c&acirc;ble; </dd>
+      <dd> - <em>float cableLength ()</em> : longueur du c&acirc;ble; </dd>
+      <dd> - <em>int ropewaySpeed ()</em> : valeur recommand&eacute;e pour
+           l'incr&eacute;ment de mouvement. </dd>
+    </dl>
+    <dl>
+      <dt> Remarque : </dt>
+      <dd> S'assurer qu'il ne soit pas n&eacute;cessaire d'appuyer sur la
+           barre d'espacement pour obtenir le mouvement. </dd>
+    </dl>
+
+    <h3>Exercice 2 : Translation dans une direction quelconque</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo2.java</em>.
+        Par rapport &agrave; la sc&egrave;ne de l'exercice
+        pr&eacute;c&eacute;dent, le c&acirc;ble est orient&eacute; dans une
+        direction <b>horizontale</b> quelconque (pas n&eacute;cessairement
+        parall&egrave;le aux axes principaux de la sc&egrave;ne). </p>
+    <dl>
+      <dt> La mise en forme du probl&egrave;me comporte une rotation
+           intercal&eacute;e entre les deux translations :
+      <dd> - la premi&egrave;re translation am&egrave;ne la cabine &agrave;
+           l'extr&eacute;mit&eacute; de d&eacute;part du c&acirc;ble; </dd>
+      <dd> - la rotation aligne la cabine sur l'axe du c&acirc;ble; </dd>
+      <dd> - la seconde translation contr&ocirc;le l'avance de la cabine. </dd>
+    </dl>
+    <p> Noter qu'il est plus int&eacute;ressant de calculer directement les
+        cosinus et sinus de l'angle, plut&ocirc;t que la valeur de l'angle
+        lui-m&ecirc;me (les m&eacute;thodes <em>Math.cos</em> et
+        <em>Math.sin</em> ont un co&ucirc;t non n&eacute;gligeable). </p>
+    <dl>
+      <dt> La g&eacute;om&eacute;trie de la sc&egrave;ne est augment&eacute;e
+           d'une m&eacute;thode d'instance suppl&eacute;mentaire : </dt>
+      <dd> - <em>float[] cableInter ()</em> : position 2D d'un point de
+           passage sur le c&acirc;ble; </dd>
+    </dl>
+    <dl>
+      <dt> Remarque : </dt>
+      <dd> Pour &eacute;viter des d&eacute;clenchements intempestifs du
+           <em>garbage collector</em>, on recommande de pr&eacute;calculer
+           les valeurs de cosinus et de sinus. </dd>
+    </dl>
+    <p> Concevoir, tester et reporter dans le compte-rendu un algorithme
+        pour que le mouvement de la cabine s'arr&ecirc;te <b>exactement</b>
+        en bout de c&acirc;ble, et reprenne depuis le point de d&eacute;part
+        apr&egrave;s un nouvel appui de la barre d'espacement. </p>
+    </p>
+  </body>
+</html>

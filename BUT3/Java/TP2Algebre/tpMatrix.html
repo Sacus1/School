@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Even TP Matrix</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#3FBFAF" text="#4F2F1F">
+    <h2>MI - Canevas du TP sur les matrices homog&egrave;nes</h2>
+
+    <p> Objectif : apprendre &agrave; contr&ocirc;ler des mouvements rigides
+        avec les outils d'alg&egrave;bre matricielle. </p>
+    <p> Le compte rendu devra comporter la mise en forme du probl&egrave;me.
+        </p>
+    <p> En cas de besoin, une <a href="./doc/index.html"> documentation
+        des classes</a> est fournie. </p>
+    <p> En fin de TP vous devrez remettre un compte-rendu et une archive
+        <em>zip</em> ou <em>tgz</em> (aucun autre format n'est accept&eacute;)
+        comportant les fichiers Java que vous aurez r&eacute;alis&eacute;s
+        (<em>Matrix.java</em>, <em>Exo3.java</em> et <em>Exo4.java</em>).
+        Les codes fournis devront pouvoir &ecirc;tre compil&eacute;s sans
+        erreur. </p>
+
+    <h3>Exercice 3 : R&eacute;solution matricielle de mouvements</h3>
+
+    <h4>Partie 3a : Op&eacute;rations matricielles</h4>
+
+    <p> Compiler et ex&eacute;cuter <em>Exo3.java</em>.
+        Le but est de refaire la trajectoire de la cabine sur le c&acirc;ble
+        par composition de matrices homog&egrave;nes. </p>
+
+    <dl>
+      <dt> Dans une premi&egrave;re &eacute;tape, compl&eacute;ter
+        l'implantation des m&eacute;thodes suivantes de la classe
+        <em>Matrix</em> (convention vecteur colonne du cours) : </dt>
+      <dd> - <em>void set (float tx, float ty, float tz)</em> :
+           transforme la matrice en matrice de translation. </dd>
+      <dd> - <em>void set (char axis, float cosAngle, float sinAngle) </em> :
+           transforme la matrice en une matrice de rotation; les valeurs
+           possibles pour le param&egrave;tre <em>axe</em> sont 'X', 'x',
+           'Y', 'y', 'Z' ou 'z'; le cosinus et le sinus de l'angle sont
+           pr&eacute;calcul&eacute;s. </dd>
+      <dd> - <em>void set (char axis, float angleDegre) </em> :
+           transforme la matrice en matrice de rotation. Attention,
+           l'angle est exprim&eacute; en degr&eacute;s. </em>
+      <dd> - <em>void set (float scale) </em> :
+           transforme la matrice en matrice d'homoth&eacute;tie uniforme
+           selon les 3 axes. </dd>
+      <dd> - <em>void mult (Matrix mat) </em> :
+           transforme la matrice par sa multiplication par <em>mat</em>. </dd>
+      <dd> - <em>void multLeft (Matrix mat) </em> :
+           transforme la matrice par la multiplication de <em>mat</em>
+           par la valeur initiale de la matrice. </dd>
+      <dt> Attention, il est recommand&eacute; de tester
+           syst&eacute;matiquement chacune des m&eacute;thodes. </dt>
+    </dl>
+
+    <h4>Partie 3b : Mise en oeuvre sur un mouvement plus complexe</h4>
+
+        <p> Par rapport &agrave; l'exercice du TP pr&eacute;c&eacute;dent,
+        le trajet de la cabine doit maintenant s'accompagner d'un mouvement
+        pendulaire autour du c&acirc;ble sous la forme de deux cycles
+        sinuso&iuml;daux d'amplitude 40 degr&eacute;s.
+        La mise en forme du probl&egrave;me comporte une rotation
+        suppl&eacute;mentaire dont l'angle est une fonction sinus
+        de l'avance. </p>
+
+    <h3>Exercice 4 : Incr&eacute;ments de rotation</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo4.java</em>.
+        Dans cet exercice, la cabine doit effectuer un mouvement circulaire
+        continu pour suivre le c&acirc;ble. </p>
+    <p> Laisser tourner quelques tours, puis noter ce que vous observez dans
+        le compte-rendu. </p>
+    <dl>
+      <dt> Analyser le fichier <em>Exo4.java</em> pour trouver l'explication
+        du ph&eacute;nom&egrave;ne et la reporter dans le compte-rendu.
+        La g&eacute;om&eacute;trie de la sc&egrave;ne est augment&eacute;e
+        de m&eacute;thodes d'instance suppl&eacute;mentaires : </dt>
+      <dd> - <em>float[] cableCenter ()</em> : position 2D du centre du
+           cercle d'appui du c&acirc;ble; </dd>
+      <dd> - <em>float cableRadius ()</em> : rayon du c&acirc;ble. </dd>
+    </dl>
+    <p> Proposer et implanter une solution pour r&eacute;soudre le 
+        probl&egrave;me sans remettre en cause le principe de
+        l'incr&eacute;ment matriciel. </p>
+  </body>
+</html>
