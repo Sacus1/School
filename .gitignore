@@ -20,3 +20,7 @@ BUT3/Python/ProgrammationAvanceIA/TP3/Verification/*
 *.zip
 *.odt
 *.pdf
+**.jar
+**.so
+**.jnlp
+**/lib/**

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Even TP Articulation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#3FBFAF" text="#4F2F1F">
+    <h2>IN4 - Canevas du TP sur les cha&icirc;nes articul&eacute;es</h2>
+
+    <p> Objectif : apprendre &agrave; mod&eacute;liser des cha&icirc;nes
+        articul&eacute;es avec les outils d'alg&egrave;bre lin&eacute;aire.
+        </p>
+    <p> Le compte rendu devra comporter la mise en forme du probl&egrave;me
+        (analyses vectorielles et matricielles). </p>
+    <p> En fin de TP vous devrez remettre une archive <em>zip</em> ou
+        <em>tgz</em> (seuls formats accept&eacute;s) comportant le compte-rendu
+        et les fichiers Java que vous aurez r&eacute;alis&eacute;s
+        (<em>Matrix.java</em>, <em>Exo1.java</em> et <em>Exo2.java</em>).
+        Les codes fournis devront pouvoir &ecirc;tre compil&eacute;s sans
+        erreur. </p>
+
+    <h3>Exercice 5 : Cha&icirc;ne articul&eacute;e simple</h3>
+    <p> R&eacute;cup&eacute;rer le fichier <em>Matrix.java</em> du TP sur
+        les transformations affines. </p>
+    <p> Compiler et ex&eacute;cuter <em>Exo5.java</em>.
+        A partir de cet exercice, on propose une sc&egrave;ne compos&eacute;e
+        d'une grue et d'une charge (tonneau) &agrave; transporter.
+        Au d&eacute;part, le tonneau est pos&eacute; au sol. Le but de
+        l'exercice est d'attacher le tonneau au crochet
+        mat&eacute;rialis&eacute; par un rectangle blanc plac&eacute;
+        &agrave; l'extr&eacute;mit&eacute; du cable de la grue.
+        Quand on appuie sur la barre d'espacement, la grue entre en
+        mouvement. </p>
+    <p> La mise en forme alg&eacute;brique du probl&egrave;me est la
+        cha&icirc;ne articul&eacute;e correspondant &agrave; l'enchainement
+        des mouvements &agrave; effectuer pour se rendre de l'origine de la
+        sc&egrave;ne &agrave; la base de la grue, puis &agrave; la
+        fl&egrave;che, puis au cable, et enfin au crochet. </p>
+    <p> Pour l'implantation de la solution, utiliser les m&eacute;thodes
+        d'instance de la classe <em>CraneScene</em> propos&eacute;es en
+        commentaires dans le fichier <em>Exo1.java</em>.
+        Penser &agrave; pr&eacute;parer toutes les matrices n&eacute;cessaires
+        dans le constructeur pour &eacute;viter le d&eacute;clenchement
+        intempestif du <em>garbage collector</em>. </p>
+
+    <h3>Exercice 6 : Cha&icirc;ne articul&eacute;e un peu moins simple</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo6.java</em>. Le but est le
+        m&ecirc;me que pr&eacute;c&eacute;demment, mais cette fois, la
+        fl&egrave;che de la grue se l&egrave;ve. </p>
+    <p> Dans une derni&egrave;re partie, on testera la touche <tt>'w'</tt>.
+        Un vent du nord se l&egrave;ve, soufflant vers les X positifs.
+        Les bourrasques provoquent une inclinaison du mat de la grue autour
+        de sa base. Adapter le code pour que le tonneau reste bien
+        attach&eacute; au crochet de la grue. </p>
+  </body>
+</html>
