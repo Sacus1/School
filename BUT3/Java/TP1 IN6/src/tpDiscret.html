@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Even TP Discr&eacute;tisation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#BEFEDE" text="#000000" style="font-family:verdana">
+    <h2>IN6 - Canevas du TP sur la dicr&eacute;tisation de segments droits</h2>
+
+    <b>1ere partie : Trac&eacute; &eacute;quilibr&eacute; </b>
+      <p> Compiler et ex&eacute;cuter le fichier <tt>Trace.java</tt>. </p>
+      <p> Choisir deux pixels dans la grille &agrave; l'aide de la souris.
+        Un troisi&egrave;me clic est sens&eacute; d&eacute;clencher le
+        trac&eacute; du segment joignant les deux points. Ce trac&eacute;
+        est pour l'instant inop&eacute;rant. </p>
+      <p> Implanter l'algorithme de trac&eacute; arithm&eacute;tique dans la
+        m&eacute;thode <tt>tracerSegment</tt> du fichier <tt>Pixel.java</tt>.
+        </p>
+      <p> Le code pourra &ecirc;tre test&eacute; avec la classe <tt>Test</tt>.
+          <br> En bleu, les pixels justes.
+          <br> En jaune, les pixels oubli&eacute;s.
+          <br> En vert, les pixels faux.
+          <br> En rouge, les pixels trac&eacute; plusieurs fois.
+          <br> Taper 1, 2, 3 ou 4 pour quelques cas standard. </p>
+
+    <b>2eme partie : Trac&eacute;s bas&eacute;s r&eacute;gion </b>
+      <p> La touche <tt>'r'</tt> force les trac&eacute;s en
+        discr&eacute;tisation bas&eacute;e r&eacute;gion sup&eacute;rieure.
+        Le param&egrave;tre <tt>eq</tt> de <tt>tracerSegment</tt> a la
+        valeur <tt>+1</tt>. </p>
+      <p> La touche <tt>'z'</tt> force les trac&eacute;s en
+        discr&eacute;tisation bas&eacute;e r&eacute;gion inf&eacute;rieure.
+        Le param&egrave;tre <tt>eq</tt> de <tt>tracerSegment</tt> a la
+        valeur <tt>-1</tt>. </p>
+      <p> La touche <tt>'e'</tt> force les trac&eacute;s en
+        discr&eacute;tisation &eacute;quilibr&eacute;e (standard).
+        Le param&egrave;tre <tt>eq</tt> de <tt>tracerSegment</tt> a la
+        valeur <tt>0</tt>. </p>
+      <p> Implanter les algorithmes de trac&eacute; correspondant dans la
+        m&eacute;thode <tt>tracerSegment </tt> avec un param&egrave;tre
+        d'&eacute;quilibrage dans <tt>Pixel.java</tt>.
+        </p>
+  </body>
+</html>
