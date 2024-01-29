@@ -33,17 +33,14 @@ public class Exo6 extends CraneScene
    */
   public boolean nextStep (float[] pose)
 {
-    Matrix m = new Matrix();
-    m.set(cranePos()[0],cranePos()[1],0);
-    m.mult(new Matrix('z', mastAngle()+90));
-    float h = mastHeight() - ropeLength() - hookThickness() - barrelHeight();
-    // lenght of the jib
-    float l = jibLength() - ;
-    // use trigonometry to compute the height of the jib
-    float diff = l * (float)Math.sin(Math.toRadians(jibAngle()));
-    m.mult(new Matrix(ropeShift(),0, h + diff));
-    m.toArray(pose);
-    // print height of the jib
+  Matrix m = new Matrix();
+  m.set(cranePos()[0],cranePos()[1],0);
+  m.mult(new Matrix('z', mastAngle()));
+  m.mult(new Matrix(0,0,mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
+  m.mult(new Matrix('x',jibAngle()));
+  m.mult(new Matrix(0,ropeShift(),0));
+  m.mult(new Matrix('x',-jibAngle()));
+  m.toArray(pose);
     return true;
 }
 

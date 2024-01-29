@@ -48,8 +48,8 @@ public class Exo5 extends CraneScene
   {
     Matrix m = new Matrix();
     m.set(cranePos()[0],cranePos()[1],0);
-    m.mult(new Matrix('z', mastAngle()+90));
-    m.mult(new Matrix(ropeShift(),0,mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
+    m.mult(new Matrix('z', mastAngle()));
+    m.mult(new Matrix(0,ropeShift(),mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
     m.toArray(pose);
     return true;
   }

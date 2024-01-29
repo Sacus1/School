@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Even TP Tracking</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  </head>
+  <body bgcolor="#3FBFAF" text="#4F2F1F">
+    <h2>IN4 - Canevas du TP sur le contr&ocirc;le de la cam&eacute;ra</h2>
+
+    <p> Objectif : apprendre &agrave; contr&ocirc;ler la cam&eacute;ra avec
+        les outils d'alg&egrave;bre lin&eacute;aire. </p>
+    <p> Le compte rendu devra comporter la mise en forme du probl&egrave;me
+        (analyses vectorielles et matricielles). </p>
+    <p> En fin de TP vous devrez remettre une archive <em>zip</em> ou
+        <em>tgz</em> (seuls formats accept&eacute;s) comportant le compte-rendu
+        et les fichiers Java que vous aurez r&eacute;alis&eacute;s
+        (<em>Matrix.java</em>, <em>Exo3.java</em> et <em>Exo4.java</em>).
+        Les codes fournis devront pouvoir &ecirc;tre compil&eacute;s sans
+        erreur. </p>
+
+    <h3>Exercice 7 : Suivi de cible</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo7.java</em>. Le but est encore
+        d'attacher le tonneau au crochet de la grue (r&eacute;cup&eacute;rer
+        le code d&eacute;j&agrave; implant&eacute;), mais cette fois,
+        la cam&eacute;ra devra viser en continu le tonneau, tout en
+        contraignant son axe Y sur la verticale du rep&egrave;re absolu. </p>
+    <p> La mise en forme alg&eacute;brique du probl&egrave;me consiste
+        &agrave; calculer la matrice de vue permettant &agrave; un
+        observateur plac&eacute; en un point fixe d'observer un point
+        mobile avec une contrainte sur l'orientation (matrice de changement
+        de rep&egrave;re). </p>
+    <p> La matrice de vue trouv&eacute;e devra &ecirc;tre calcul&eacute;e
+        et retourn&eacute;e par la m&eacute;thode <em>setView</em>. </p>
+
+    <h3>Exercice 8 : Cam&eacute;ra embarqu&eacute;e et suivi de cible</h3>
+    <p> Compiler et ex&eacute;cuter <em>Exo8.java</em>.
+        Par rapport &agrave; l'exercice pr&eacute;c&eacute;dent, la
+        cam&eacute;ra devra cette fois &ecirc;tre plac&eacute;e &agrave;
+        l'int&eacute;rieur de la cabine du t&eacute;l&eacute;ph&eacute;rique,
+        et viser le tonneau &agrave l'extr&eacute;mit&eacute; de la grue. </p> 
+    <p> Quand on appuie sur la touche <tt>'s'</tt>, le param&egrave;tre
+        <tt>reverse</tt> passe &agrave; <tt>true</tt>, et la cam&eacute;ra
+        doit alors viser l'int&eacute;rieur de la cabine depuis le tonneau.
+        </p>
+    </dl>
+  </body>
+</html>
