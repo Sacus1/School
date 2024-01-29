@@ -11,25 +11,21 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @Entity
 public class Utilisateur {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@RestResource(exported = false)
-	private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @RestResource(exported = false)
+  private long id;
 
-	@Setter
-	@Getter
-	private String firstName;
-	@Setter
-	@Getter
-	private String lastName;
+  @Setter @Getter private String firstName;
+  @Setter @Getter private String lastName;
 
-	public Utilisateur(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+  public Utilisateur(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-	public Utilisateur() {
-		this.firstName = "John";
-		this.lastName = "Doe";
-	}
+  public Utilisateur() {
+    this.firstName = "John";
+    this.lastName = "Doe";
+  }
 }

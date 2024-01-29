@@ -23,43 +23,42 @@
 // Geometrie de la scene : cf Exo5
 //
 
-
-
 /** Second training session on model/view control. */
-public class Exo6 extends CraneScene
-{
-  /** Returns the next animation step pose.
+public class Exo6 extends CraneScene {
+  /**
+   * Returns the next animation step pose.
+   *
    * @param pose Already allocated vector to fill in with new pose values.
    */
-  public boolean nextStep (float[] pose)
-{
-  Matrix m = new Matrix();
-  m.set(cranePos()[0],cranePos()[1],0);
-  m.mult(new Matrix('z', mastAngle()));
-  m.mult(new Matrix(0,0,mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
-  m.mult(new Matrix('x',jibAngle()));
-  m.mult(new Matrix(0,ropeShift(),0));
-  m.mult(new Matrix('x',-jibAngle()));
-  m.toArray(pose);
+  public boolean nextStep(float[] pose) {
+    Matrix m = new Matrix();
+    m.set(cranePos()[0], cranePos()[1], 0);
+    m.mult(new Matrix('z', mastAngle()));
+    m.mult(new Matrix(0, 0, mastHeight() - ropeLength() - hookThickness() - barrelHeight()));
+    m.mult(new Matrix('x', jibAngle()));
+    m.mult(new Matrix(0, ropeShift(), 0));
+    m.mult(new Matrix('x', -jibAngle()));
+    m.toArray(pose);
     return true;
-}
+  }
 
-  /** Constructs the 3D scene used for training.
-   * Prepares the intermediate storage objects.
+  /**
+   * Constructs the 3D scene used for training. Prepares the intermediate storage objects.
+   *
    * @param p1 Type of the loaded scene.
    */
-  private Exo6 (int p1)
-  {
-    super (p1, true);
+  private Exo6(int p1) {
+    super(p1, true);
 
     // Preparation du mouvement (a completer)
   }
 
-  /** Runs a crane animation.
+  /**
+   * Runs a crane animation.
+   *
    * @param args Run arguments.
    */
-  public static void main (String[] args)
-  {
-    new ExoFrame (6, new Exo6 (1));
+  public static void main(String[] args) {
+    new ExoFrame(6, new Exo6(1));
   }
 }

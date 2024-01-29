@@ -23,55 +23,49 @@
 //          place dans vp les coordonnees du centre de projection
 //
 
-
-import java.util.Arrays;
-
 /** Third training session on model/view control. */
-public class Exo7 extends CraneScene
-{
+public class Exo7 extends CraneScene {
   /** View matrix terms. */
   private float[] vis = new float[16];
 
-
-  /** Returns the next animation step pose.
+  /**
+   * Returns the next animation step pose.
+   *
    * @param pose Already allocated vector to fill in with new pose values.
    */
-  public boolean nextStep (float[] pose)
-  {
+  public boolean nextStep(float[] pose) {
     // Deplacement du tonneau
     Matrix m = new Matrix();
-    m.set(cranePos()[0],cranePos()[1],0);
+    m.set(cranePos()[0], cranePos()[1], 0);
     m.mult(new Matrix('z', mastAngle()));
-    m.mult(new Matrix(0,0,mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
-    m.mult(new Matrix('x',jibAngle()));
-    m.mult(new Matrix(0,ropeShift(),0));
-    m.mult(new Matrix('x',-jibAngle()));
+    m.mult(new Matrix(0, 0, mastHeight() - ropeLength() - hookThickness() - barrelHeight()));
+    m.mult(new Matrix('x', jibAngle()));
+    m.mult(new Matrix(0, ropeShift(), 0));
+    m.mult(new Matrix('x', -jibAngle()));
     m.toArray(pose);
     return true;
   }
 
-  public float[] lookAt(float[] pos,float[] target){
+  public float[] lookAt(float[] pos, float[] target) {
     float[] viewMatrix = new float[16];
-    float[] direction = normalize(subtract(target,pos));
-    float[] right = normalize(cross(direction,new float[]{0,1,0}));
-    float[] up = normalize(cross(right,direction));
+    float[] direction = normalize(subtract(target, pos));
+    float[] right = normalize(cross(direction, new float[] {0, 1, 0}));
+    float[] up = normalize(cross(right, direction));
 
-    Matrix m = new Matrix(right,up,direction,new float[]{0,0,0});
-    Matrix t = new Matrix(-pos[0],-pos[1],-pos[2]);
+    Matrix m = new Matrix(right, up, direction, new float[] {0, 0, 0});
+    Matrix t = new Matrix(-pos[0], -pos[1], -pos[2]);
     m.mult(t);
     m.toArray(viewMatrix);
     return viewMatrix;
   }
 
   private static float[] subtract(float[] a, float[] b) {
-    return new float[]{a[0] - b[0], a[1] - b[1], a[2] - b[2]};
+    return new float[] {a[0] - b[0], a[1] - b[1], a[2] - b[2]};
   }
 
   private static float[] cross(float[] a, float[] b) {
-    return new float[]{
-            a[1] * b[2] - a[2] * b[1],
-            a[2] * b[0] - a[0] * b[2],
-            a[0] * b[1] - a[1] * b[0]
+    return new float[] {
+      a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]
     };
   }
 
@@ -81,47 +75,48 @@ public class Exo7 extends CraneScene
 
   private static float[] normalize(float[] a) {
     float length = (float) Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
-    return new float[]{a[0] / length, a[1] / length, a[2] / length};
+    return new float[] {a[0] / length, a[1] / length, a[2] / length};
   }
 
-  /** Returns the viewing matrix to be immediately applied.
+  /**
+   * Returns the viewing matrix to be immediately applied.
+   *
    * @param reverse Unused here.
    */
-  public float[] setView (boolean reverse)
-  {
+  public float[] setView(boolean reverse) {
     float[] camPos = new float[3];
     float[] target = new float[3];
-    float[] up = new float[]{0,1,0};
+    float[] up = new float[] {0, 1, 0};
     getCameraPosition(camPos);
     target[0] = camPos[0];
     target[1] = camPos[1];
     target[2] = camPos[2];
-    vis = lookAt(camPos,target);
+    vis = lookAt(camPos, target);
     return (vis);
   }
 
   private void getBarrelPosition(float[] barrelPos) {
     float[] pose = new float[16];
     Matrix m = new Matrix();
-    m.set(cranePos()[0],cranePos()[1],0);
+    m.set(cranePos()[0], cranePos()[1], 0);
     m.mult(new Matrix('z', mastAngle()));
-    m.mult(new Matrix(0,0,mastHeight()-ropeLength()-hookThickness()-barrelHeight()));
-    m.mult(new Matrix('x',jibAngle()));
-    m.mult(new Matrix(0,ropeShift(),0));
-    m.mult(new Matrix('x',-jibAngle()));
+    m.mult(new Matrix(0, 0, mastHeight() - ropeLength() - hookThickness() - barrelHeight()));
+    m.mult(new Matrix('x', jibAngle()));
+    m.mult(new Matrix(0, ropeShift(), 0));
+    m.mult(new Matrix('x', -jibAngle()));
     m.toArray(pose);
     barrelPos[0] = pose[12];
     barrelPos[1] = pose[13];
     barrelPos[2] = pose[14];
   }
 
-  /** Constructs the 3D scene used for training.
-   * Prepares the intermediate storage objects.
+  /**
+   * Constructs the 3D scene used for training. Prepares the intermediate storage objects.
+   *
    * @param p1 Type of the loaded scene.
    */
-  private Exo7 (int p1)
-  {
-    super (p1, true);
+  private Exo7(int p1) {
+    super(p1, true);
 
     // Preparation du mouvement
     // MATRICE DE VUE PAR DEFAUT
@@ -134,12 +129,12 @@ public class Exo7 extends CraneScene
     vis[15] = 1.f;
   }
 
-  /** Runs a crane animation.
+  /**
+   * Runs a crane animation.
+   *
    * @param args Run arguments.
    */
-  public static void main (String[] args)
-  {
-    new ExoFrame (7, new Exo7 (args.length == 1
-                               && args[0].equals ("stop") ? 0 : 1));
+  public static void main(String[] args) {
+    new ExoFrame(7, new Exo7(args.length == 1 && args[0].equals("stop") ? 0 : 1));
   }
 }
