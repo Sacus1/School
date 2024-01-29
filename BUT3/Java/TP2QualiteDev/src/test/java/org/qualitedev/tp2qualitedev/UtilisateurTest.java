@@ -1,46 +1,46 @@
 package org.qualitedev.tp2qualitedev;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 class UtilisateurTest {
 
-	@Test
-	void shouldCreateUserWithDefaultValues() {
-		Utilisateur user = Mockito.mock(Utilisateur.class);
-		when(user.getFirstName()).thenReturn("John");
-		when(user.getLastName()).thenReturn("Doe");
+  @Test
+  void shouldCreateUserWithDefaultValues() {
+    Utilisateur user = Mockito.mock(Utilisateur.class);
+    when(user.getFirstName()).thenReturn("John");
+    when(user.getLastName()).thenReturn("Doe");
 
-		assertEquals("John", user.getFirstName());
-		assertEquals("Doe", user.getLastName());
-	}
+    assertEquals("John", user.getFirstName());
+    assertEquals("Doe", user.getLastName());
+  }
 
-	@Test
-	void shouldCreateUserWithProvidedValues() {
-		Utilisateur user = Mockito.mock(Utilisateur.class);
-		when(user.getFirstName()).thenReturn("Jane");
-		when(user.getLastName()).thenReturn("Doe");
+  @Test
+  void shouldCreateUserWithProvidedValues() {
+    Utilisateur user = Mockito.mock(Utilisateur.class);
+    when(user.getFirstName()).thenReturn("Jane");
+    when(user.getLastName()).thenReturn("Doe");
 
-		assertEquals("Jane", user.getFirstName());
-		assertEquals("Doe", user.getLastName());
-	}
+    assertEquals("Jane", user.getFirstName());
+    assertEquals("Doe", user.getLastName());
+  }
 
-	@Test
-	void shouldUpdateFirstName() {
-		Utilisateur user = Mockito.mock(Utilisateur.class);
-		when(user.getFirstName()).thenReturn("Jane");
+  @Test
+  void shouldUpdateFirstName() {
+    Utilisateur user = Mockito.mock(Utilisateur.class);
+    when(user.getFirstName()).thenReturn("Jane");
 
-		assertEquals("Jane", user.getFirstName());
-	}
+    assertEquals("Jane", user.getFirstName());
+  }
 
-	@Test
-	void shouldUpdateLastName() {
-		Utilisateur user = Mockito.mock(Utilisateur.class);
-		when(user.getLastName()).thenReturn("Smith");
+  @Test
+  void shouldUpdateLastName() {
+    Utilisateur user = Mockito.mock(Utilisateur.class);
+    when(user.getLastName()).thenReturn("Smith");
 
-		assertEquals("Smith", user.getLastName());
-	}
+    assertEquals("Smith", user.getLastName());
+  }
 }
