@@ -79,7 +79,7 @@ vid.set(10, 150)
 if __name__ == '__main__':
     pass
 while 1:
-    img = vid.read()[1]
+    img = cv.imread('cards.png')
     # set point arrivé to image size
     pointsArrivee[1] = (0, img.shape[0])
     pointsArrivee[2] = (img.shape[1], img.shape[0])
