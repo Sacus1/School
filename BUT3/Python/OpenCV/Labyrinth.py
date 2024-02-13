@@ -3,7 +3,6 @@ import threading
 from collections import deque
 import time
 import cv2 as cv
-
 pointDepart = (-1, -1)
 pointArrivee = (0, 0)
 
@@ -93,12 +92,12 @@ def AStar(maze, start, end):
             neighbor.y] == 0 or neighbor in reached:
                 continue
             pas += 1
-            img[current.x, current.y] = get_color(pas, 360000)
-            if pas % 1000 == 0:
+            img[current.x, current.y] = get_color(current.f, 720)
+            if pas % 10000 == 0:
                 cv.imshow('image', img)
             if neighbor in open_set:
-                if neighbor.g > current.g + 1:
-                    neighbor.g = current.g + 1
+                if neighbor.g > current.g + 10:
+                    neighbor.g = current.g + 10
                     neighbor.parent = current
             else:
                 open_set.add(neighbor)
