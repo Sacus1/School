@@ -5,7 +5,7 @@ public class AStar implements Algorithm {
 
 	@Override
 	public void findPath(Vertex source, Vertex destination) throws NoPathFoundException {
-  ArrayList<Vertex> closed;
+		ArrayList<Vertex> closed;
 		open = new ArrayList<>();
 		closed = new ArrayList<>();
 		open.add(source);
@@ -16,7 +16,7 @@ public class AStar implements Algorithm {
 
 			open.remove(current);
 			closed.add(current);
-			for (Vertex neighbor : model.getAdjacent(current,closed)) {
+			for (Vertex neighbor : model.getAdjacent(current, closed)) {
 				if (open.contains(neighbor)) {
 					// if the neighbor is already in the open list, check if the path to it is shorter
 					// if yes, update the previous node, and the costs.
@@ -36,6 +36,7 @@ public class AStar implements Algorithm {
 			}
 		}
 	}
+
 	private Vertex getNodeWithLowestCost() {
 		Vertex best = open.get(0);
 		for (Vertex node : open) {

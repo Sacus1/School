@@ -39,16 +39,16 @@ public class Controller {
 		view.waitTime.addActionListener(e -> {
 			try {
 				model.waitTime = Integer.parseInt(view.waitTime.getText());
-				Logger.log("Wait time set to " + model.waitTime);
+				System.out.println("Wait time set to " + model.waitTime);
 			} catch (NumberFormatException ignored) {
-				Logger.error("Invalid wait time");
+				System.err.println("Invalid wait time");
 			}
 		});
 	}
 
 	private void algorithmSelector() {
 		if (model.isRunning) {
-			Logger.error("Already running");
+			System.err.println("Already running");
 			return;
 		}
 		Algorithm[] algorithms = {new BreadthFirst(), new DepthFirst(), new GreedyBestFirst(), new Dijkstra(), new AStar()

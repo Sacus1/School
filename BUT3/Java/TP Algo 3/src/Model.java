@@ -64,17 +64,17 @@ public class Model extends Observable {
 	public void findPath(){
 		// check if isRunning
 		if (isRunning) {
-			Logger.error("Already running");
+			System.err.println("Already running");
 			return;
 		}
 		// check if algorithm is set
 		if (algorithm == null) {
-			Logger.error("Algorithm not set");
+			System.err.println("Algorithm not set");
 			return;
 		}
 		// check if start and end are set
 		if (start == null || end == null) {
-			Logger.error("Start or end not set");
+			System.err.println("Start or end not set");
 			return;
 		}
 		// remove path from grid
@@ -104,7 +104,7 @@ public class Model extends Observable {
 			update();
 			isRunning = false;
 		} catch (NoPathFoundException ex) {
-			Logger.error("Path not found");
+			System.err.println("Path not found");
 		}
 
 	}
