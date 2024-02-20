@@ -26,7 +26,10 @@ class handDetector:
         # draw blue rectangle
         cv.rectangle(self.img, (0, 0), (int(self.distancePercent * 6.4), 50), (255, 0, 0), cv.FILLED)
         cv.putText(self.img, f'{int(self.distancePercent)}%', (10, 30), cv.FONT_HERSHEY_PLAIN, 2, (255, 0, 255), 2)
-
+        cv.line(self.img, self.fingersPos[8], self.fingersPos[4], (255, 0, 0), 2)
+        cv.circle(self.img, self.fingersPos[8], 10, (255, 0, 0), cv.FILLED)
+        cv.circle(self.img, self.fingersPos[4], 10, (255, 0, 0), cv.FILLED)
+        cv.circle(self.img, (self.fingersPos[4]+self.fingersPos[8])//2, 10, (255, 0, 0), cv.FILLED)
     def run(self):
         while True:
             fps = 1 / (time.time() - self.pTime)
