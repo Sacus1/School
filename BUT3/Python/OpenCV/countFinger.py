@@ -9,7 +9,7 @@ detector = handDetector()
 
 
 def drawFingers(self):
-    fingers = self.get_amount_fingers()
+    fingers = self.get_up_fingers()
     # get image in Fingers folder
     if fingers[0] and fingers[1] and not fingers[2] and not fingers[3]:
         image = cv2.imread(f'Fingers/v.png')

@@ -20,7 +20,7 @@ class handDetector:
         self.distanceMax = 300
         self.img = self.cap.read()[1]
         # method to call when the image is updated
-        self.function = None
+        self.function = lambda x: None
 
     def drawDistance(self) -> None:
         # draw blue rectangle
@@ -35,6 +35,8 @@ class handDetector:
             fps = 1 / (time.time() - self.pTime)
             self.pTime = time.time()
             success, self.img = self.cap.read()
+            # flip the image
+            self.img = cv.flip(self.img, 1)
             if not success:
                 print("Failed to read frame from camera. Please check your camera.")
                 return
@@ -65,7 +67,7 @@ class handDetector:
             self.distancePercent = np.interp(min(max(distance, self.distanceMin), self.distanceMax),
                                              [self.distanceMin, self.distanceMax], [0, 100])
 
-    def get_amount_fingers(self):
+    def get_up_fingers(self):
         """
         Returns the amount of fingers raised
         [index, middle, ring, pinky, thumb]
